@@ -1,54 +1,64 @@
 * { margin:0; padding:0; box-sizing:border-box; }
-body, html { height:100%; overflow:hidden; font-family:'Noto Sans JP', sans-serif; }
+html, body { height:100%; overflow:hidden; background:#000; }
+body { display:flex; align-items:center; justify-content:center; font-family:'Noto Sans JP', sans-serif; }
 
-.screen { position:fixed; top:0; left:0; width:100%; height:100%; background:#000; display:none; align-items:center; justify-content:center; flex-direction:column; }
+.screen {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:100vw; height:100vh; max-width:100vmin; max-height:100vmax;
+  background:#000; display:none; align-items:center; justify-content:center; flex-direction:column;
+}
 .screen.active { display:flex; }
+
+@media (orientation: landscape) { .screen { width:56.25vh; height:100vh; } }
+@media (orientation: portrait)  { .screen { width:100vw; height:177.78vw; } }
 
 .bg { position:absolute; width:100%; height:100%; object-fit:cover; z-index:-1; }
 
 .big-btn { padding:18px 36px; font-size:2rem; background:#ffeb3b; border:none; border-radius:20px; box-shadow:0 10px 0 #c8b900; margin-top:60px; cursor:pointer; font-weight:900; }
 .big-btn:active { transform:translateY(10px); box-shadow:0 0 0 #c8b900; }
 
-.message { font-size:2.1rem; color:white; text-shadow:4px 4px 10px black; font-weight:900; text-align:center; margin-bottom:80px; line-height:1.4; }
+.message { 
+  font-size:2.1rem; color:white; text-shadow:4px 4px 10px black; font-weight:900; 
+  text-align:center; margin-bottom:80px; line-height:1.5; 
+}
 
 .countdown { font-size:12rem; color:#ffeb3b; font-weight:900; text-shadow:0 0 30px #ffeb3b; animation:pulse 1.2s infinite; }
 @keyframes pulse { 0%,100% {transform:scale(1)} 50% {transform:scale(1.1)} }
 
-#timer { position:absolute; top:15px; right:15px; font-size:1.8rem; color:white; background:rgba(0,0,0,0.6); padding:8px 16px; border-radius:12px; font-weight:bold; }
-#stage { position:absolute; top:15px; left:15px; font-size:1.7rem; color:white; background:rgba(0,0,0,0.6); padding:8px 16px; border-radius:12px; }
+#timer { position:absolute; top:15px; right:15px; font-size:1.8rem; color:white; background:rgba(0,0,0,0.6); padding:8px 16px; border-radius:12px; font-weight:bold; z-index:10; }
+#stage { position:absolute; top:15px; left:15px; font-size:1.7rem; color:white; background:rgba(0,0,0,0.6); padding:8px 16px; border-radius:12px; z-index:10; }
 
-#grid { display:grid; gap:4px; padding:10px; max-width:95vw; max-height:70vh; justify-content:center; align-content:center; }
+#grid { display:grid; gap:5px; padding:10px; width:90vmin; height:90vmin; max-width:90vw; max-height:65vh; justify-content:center; align-content:center; }
 
 .cell { background:rgba(255,255,255,0.95); border-radius:12px; font-size:3rem; font-weight:900; display:flex; align-items:center; justify-content:center; aspect-ratio:1/1; user-select:none; box-shadow:0 8px 0 rgba(0,0,0,0.2); transition:all 0.1s; }
 .cell:active { transform:translateY(8px); box-shadow:0 0 0 rgba(0,0,0,0.2); }
 
-/* 咎人！を絶対に横に三文字並べる！ */
 .wrong-text { 
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); 
-  font-size:6.5rem; color:#ff0044; font-weight:900; 
-  text-shadow:0 0 30px black; opacity:0; pointer-events:none;
-  white-space:nowrap !important;   /* ← これで縦にならない！ */
-  letter-spacing:8px;              /* ← 少し間隔開けてカッコよく */
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-size:7rem; color:#ff0044; font-weight:900; text-shadow:0 0 35px black;
+  opacity:0; pointer-events:none; white-space:nowrap; letter-spacing:12px;
 }
 
-/* 神ポップアップ */
-.god-pop { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); display:none; align-items:center; justify-content:center; flex-direction:column; z-index:100; }
+.god-pop { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; flex-direction:column; z-index:100; }
 .god-text { font-size:20rem; color:#ffeb3b; text-shadow:0 0 50px #fff, 0 0 100px #ff0; animation:godGlow 1.5s ease-out; }
 .sparkle { position:absolute; font-size:6rem; animation:sparkleAnim 1.5s ease-out forwards; pointer-events:none; }
 
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト画面：スマホで見切れないように文字サイズ大幅調整 */
-.result-box { text-align:center; color:white; text-shadow:4px 4px 10px black; padding:20px; max-width:90vw; }
+/* リザルト：長いランク名も絶対見切れない！ */
+.result-box { text-align:center; color:white; text-shadow:4px 4px 10px black; padding:20px; max-width:90%; }
 .result-box h1 { 
-  font-size:4.8rem !important;      /* ← スマホでも絶対1行！ */
-  margin:20px 0;
-  word-break:keep-all;
-  line-height:1.2;
+  font-size:5.8rem; margin:20px 0; word-break:keep-all; line-height:1.1;
+}
+.result-box h1[data-rank="ワンヘッド"],
+.result-box h1[data-rank="ハーフライフ"] {
+  font-size:4.2rem !important;   /* ← 長い文字だけ小さく！ */
 }
 @media (min-width:768px) {
-  .result-box h1 { font-size:7.5rem !important; } /* PCではデカく */
+  .result-box h1 { font-size:7.5rem; }
+  .result-box h1[data-rank="ワンヘッド"],
+  .result-box h1[data-rank="ハーフライフ"] { font-size:5.5rem !important; }
 }
 .result-box p { font-size:2.6rem; margin:30px 0; }
 .share-btn { background:#1da1f2; margin-top:30px; box-shadow:0 10px 0 #0d8bd9; }

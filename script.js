@@ -1,17 +1,12 @@
 const stages = [
   { size: 2, normal: "祝", god: "神" },
   { size: 3, normal: "伸", god: "神" },
-  { size: 3, normal: "視", god: "神" },   // ← 要望通り！
-  { size: 4, normal: "押", god: "神" },   // ← 要望通り！
+  { size: 3, normal: "視", god: "神" },
+  { size: 4, normal: "押", god: "神" },
   { size: 5, normal: "袖", god: "神" }
 ];
 
-let currentStage = 0;
-let startTime;
-let totalTime = 0;
-let timerInterval;
-let penalty = 0;
-let godPosition = -1;
+let currentStage = 0, startTime, totalTime = 0, timerInterval, penalty = 0, godPosition = -1;
 let screens = null;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -60,12 +55,14 @@ function nextStageFunc() {
   grid.innerHTML = "";
   grid.style.gridTemplateColumns = `repeat(${stage.size}, 1fr)`;
 
-  // 自動フィット（5x5も完璧）
-  const cellSize = Math.min(window.innerWidth * 0.95 / stage.size, window.innerHeight * 0.62 / stage.size);
+  const cellSize = Math.min(
+    (window.innerWidth * 0.9) / stage.size,
+    (window.innerHeight * 0.6) / stage.size
+  );
   const gridSize = cellSize * stage.size;
   grid.style.width = gridSize + 'px';
   grid.style.height = gridSize + 'px';
-  grid.style.gap = Math.max(3, cellSize * 0.04) + 'px';
+  grid.style.gap = Math.max(4, cellSize * 0.05) + 'px';
 
   godPosition = Math.floor(Math.random() * (stage.size * stage.size));
 
@@ -73,10 +70,8 @@ function nextStageFunc() {
     const cell = document.createElement("div");
     cell.className = "cell";
     cell.textContent = i === godPosition ? stage.god : stage.normal;
-    cell.style.fontSize = Math.min(cellSize * 0.7, 70) + 'px';
-    (function(idx) {
-      cell.addEventListener('click', () => clickCell(idx === godPosition, cell));
-    })(i);
+    cell.style.fontSize = Math.min(cellSize * 0.7, 80) + 'px';
+    (function(idx) { cell.addEventListener('click', () => clickCell(idx === godPosition, cell)); })(i);
     grid.appendChild(cell);
   }
 
@@ -92,7 +87,7 @@ function clickCell(isGod, cell) {
   if (!isGod) {
     penalty += 1;
     const wrong = document.getElementById("wrong");
-    wrong.textContent = "咎人！";  // ← 要望通り！
+    wrong.textContent = "咎人！";
     wrong.style.opacity = "1";
     setTimeout(() => {
       wrong.style.opacity = "0";
@@ -110,7 +105,6 @@ function clickCell(isGod, cell) {
 
 function showGodPop() {
   screens.godPop.style.display = "flex";
-
   document.querySelectorAll(".sparkle").forEach(s => {
     const a = Math.random() * Math.PI * 2;
     const d = 200 + Math.random() * 200;
@@ -127,8 +121,6 @@ function showGodPop() {
     } else {
       screens.game.classList.remove("active");
       screens.nextStage.classList.add("active");
-      // ← 改行対応メッセージ！
-      document.querySelector("#nextStage .message").textContent = "正解！\n次のステージが\nはじまるよ！";
       startCountdown(3, nextStageFunc);
     }
   }, 1800);
@@ -152,12 +144,12 @@ function showResult() {
   else if (totalTime <= 10) { rank = "ハーフライフ"; img = "result_B.png"; }
   else if (totalTime < 15)  { rank = "凡人";       img = "result_C.png"; }
 
-  document.getElementById("rankText").textContent = rank;
+  const rankEl = document.getElementById("rankText");
+  rankEl.textContent = rank;
+  rankEl.setAttribute("data-rank", rank);  // ← 長いランクだけ小さくするトリガー！
   document.getElementById("resultBg").src = "images/" + img;
 
-  // X（旧Twitter）へ確実に飛ぶ！
   const tweetText = `【神を探せ！】で${rank}（${totalTime.toFixed(2)}秒）になりました！あなたはどこまで行ける？`;
-  document.getElementById("shareBtn").textContent = "Xで自慢する";
   document.getElementById("shareBtn").onclick = () => {
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(location.href)}`, '_blank');
   };
