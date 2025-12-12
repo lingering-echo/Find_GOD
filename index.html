@@ -2,11 +2,9 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>神を探せ！</title>
   <link rel="stylesheet" href="style.css"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -28,7 +26,7 @@
   <div id="game" class="screen">
     <div id="timer">0.00秒</div>
     <div id="stage">ステージ <span id="stageNum">1</span>/5</div>
-    <div id="wrong" class="wrong-text">不正解！</div>
+    <div id="wrong" class="wrong-text">咎人！</div>
     <div id="grid"></div>
   </div>
 
@@ -44,7 +42,7 @@
   <!-- 次ステージへカウントダウン -->
   <div id="nextStage" class="screen">
     <img src="images/countdown.png" class="bg">
-    <div class="message">正解！次のステージがはじまるよ！</div>
+    <div class="message">正解！\n次のステージが\nはじまるよ！</div>
     <div class="countdown" id="nextCount">3</div>
   </div>
 
@@ -55,10 +53,10 @@
       <h1 id="rankText">神</h1>
       <p>クリアタイム <span id="finalTime">0.00</span>秒</p>
       <button class="big-btn" onclick="location.reload()">もう一度遊ぶ</button>
-      <button class="big-btn share-btn" id="shareBtn">Xに神を報告する</button>
+      <button class="big-btn share-btn" id="shareBtn">Xで神を報告する</button>
     </div>
   </div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
