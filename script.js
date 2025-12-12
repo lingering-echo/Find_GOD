@@ -1,8 +1,8 @@
 const stages = [
   { size: 2, normal: "祝", god: "神" },
   { size: 3, normal: "伸", god: "神" },
-  { size: 3, normal: "押", god: "神" },
-  { size: 4, normal: "祌", god: "神" },
+  { size: 3, normal: "祌", god: "神" }, 
+  { size: 4, normal: "押", god: "神" }, 
   { size: 5, normal: "袖", god: "神" }
 ];
 
@@ -13,7 +13,6 @@ let timerInterval;
 let penalty = 0;
 let godPosition = -1;
 
-// 画面要素をグローバルに保持（タイミング問題回避）
 let screens = null;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -25,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     result: document.getElementById("result"),
     godPop: document.getElementById("godPop")
   };
-  console.log("DOMロード完了！screens初期化OK"); // デバッグ
+  console.log("DOMロード完了！screens初期化OK");
 
   document.getElementById("startBtn").onclick = () => {
     if (screens) {
@@ -38,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function startCountdown(num, callback) {
   if (!screens) {
-    console.error("screensがnull！初期化待機");
     setTimeout(() => startCountdown(num, callback), 100);
     return;
   }
@@ -50,14 +48,9 @@ function startCountdown(num, callback) {
   }
   if (cdElement) {
     cdElement.textContent = num;
-    console.log(`カウントダウン: ${num}`); // デバッグ
   }
   if (num <= 0) {
-    console.log("カウントダウン0！コールバック実行中...");
-    setTimeout(() => {
-      callback();
-      console.log("コールバック完了！");
-    }, 500);
+    setTimeout(callback, 500);
     return;
   }
   setTimeout(() => startCountdown(num - 1, callback), 1000);
@@ -74,16 +67,10 @@ function startGame() {
 }
 
 function nextStageFunc() {
-  if (!screens) {
-    console.error("nextStageFunc: screens null");
-    return;
-  }
-  console.log(`nextStageFunc呼び出し: ステージ${currentStage + 1}`);
+  if (!screens) return;
   
-  // 次ステージ画面からゲーム画面へ強制切り替え
   screens.nextStage.classList.remove("active");
   screens.game.classList.add("active");
-  console.log("画面切り替え: nextStage → game");
 
   if (currentStage >= stages.length) {
     showResult();
@@ -94,24 +81,28 @@ function nextStageFunc() {
   document.getElementById("stageNum").textContent = currentStage + 1;
 
   const grid = document.getElementById("grid");
-  if (!grid) {
-    console.error("grid要素なし");
-    return;
-  }
   grid.innerHTML = "";
   grid.style.gridTemplateColumns = `repeat(${stage.size}, 1fr)`;
 
+  // ★見切れ対策: グリッドを画面に自動フィット
+  const availableWidth = window.innerWidth * 0.95;
+  const availableHeight = window.innerHeight * 0.65; // タイマー分除く
+  const cellSize = Math.min(availableWidth / stage.size, availableHeight / stage.size);
+  const gridSize = cellSize * stage.size;
+  grid.style.width = gridSize + 'px';
+  grid.style.height = gridSize + 'px';
+  grid.style.gap = Math.max(2, cellSize * 0.03) + 'px'; // gapも動的
+
   godPosition = Math.floor(Math.random() * (stage.size * stage.size));
-  console.log(`ステージ${currentStage + 1}: 神位置 = ${godPosition}`);
 
   for (let i = 0; i < stage.size * stage.size; i++) {
     const cell = document.createElement("div");
     cell.className = "cell";
     cell.textContent = i === godPosition ? stage.god : stage.normal;
+    cell.style.fontSize = Math.min(cellSize * 0.7, 60) + 'px'; // 文字サイズ自動調整
     
     (function(cellIndex) {
       cell.addEventListener('click', function() {
-        console.log(`クリック: セル${cellIndex} (神? ${cellIndex === godPosition})`);
         clickCell(cellIndex === godPosition, this);
       });
     })(i);
@@ -122,7 +113,6 @@ function nextStageFunc() {
   startTime = performance.now();
   clearInterval(timerInterval);
   timerInterval = setInterval(updateTimer, 10);
-  console.log("グリッド生成&タイマー開始完了！");
 }
 
 function clickCell(isGod, cell) {
@@ -132,9 +122,9 @@ function clickCell(isGod, cell) {
   if (!isGod) {
     penalty += 1;
     const wrongText = document.getElementById("wrong");
-    if (wrongText) wrongText.style.opacity = "1";
+    wrongText.style.opacity = "1";
     setTimeout(() => {
-      if (wrongText) wrongText.style.opacity = "0";
+      wrongText.style.opacity = "0";
       startTime = performance.now() - (elapsed * 1000);
       timerInterval = setInterval(updateTimer, 10);
     }, 800);
@@ -144,14 +134,12 @@ function clickCell(isGod, cell) {
   totalTime += elapsed + penalty;
   penalty = 0;
   cell.style.background = "#ffeb3b";
-  console.log(`正解！総時間: ${totalTime.toFixed(2)}s`);
   showGodPop();
 }
 
 function showGodPop() {
   if (!screens) return;
   screens.godPop.style.display = "flex";
-  console.log("神ポップアップ表示");
 
   const sparkles = document.querySelectorAll(".sparkle");
   sparkles.forEach((s) => {
@@ -167,13 +155,11 @@ function showGodPop() {
   setTimeout(() => {
     screens.godPop.style.display = "none";
     currentStage++;
-    console.log(`ステージ進捗: ${currentStage}/${stages.length}`);
     if (currentStage >= stages.length) {
       setTimeout(showResult, 500);
     } else {
       screens.game.classList.remove("active");
       screens.nextStage.classList.add("active");
-      console.log("次ステージ画面表示 → カウントダウン開始");
       startCountdown(3, nextStageFunc);
     }
   }, 1800);
@@ -189,7 +175,6 @@ function showResult() {
   clearInterval(timerInterval);
   screens.game.classList.remove("active");
   screens.result.classList.add("active");
-  console.log("リザルト画面表示");
 
   document.getElementById("finalTime").textContent = totalTime.toFixed(2);
 

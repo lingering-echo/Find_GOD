@@ -25,7 +25,7 @@ body, html { height:100%; overflow:hidden; font-family:'Noto Sans JP', sans-seri
   font-size: 2rem;
   background: #ffeb3b;
   border: none;
-  border-radius:  border-radius: 20px;
+  border-radius: 20px;
   box-shadow: 0 10px 0 #c8b900;
   margin-top: 80px;
   cursor: pointer;
@@ -83,15 +83,18 @@ body, html { height:100%; overflow:hidden; font-family:'Noto Sans JP', sans-seri
 
 #grid {
   display: grid;
-  gap: 8px;
-  padding: 20px;
+  gap: 4px; /* 見切れ対策: gap小さく */
+  padding: 10px; /* padding小さく */
   max-width: 95vw;
+  max-height: 70vh; /* 高さ制限追加 */
+  justify-content: center;
+  align-content: center;
 }
 
 .cell {
   background: rgba(255,255,255,0.9);
   border-radius: 12px;
-  font-size: 4rem;
+  font-size: 3rem; /* 基本font-size小さく（JSでさらに調整） */
   font-weight: 900;
   display: flex;
   align-items: center;
