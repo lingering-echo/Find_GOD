@@ -17,34 +17,29 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 .countdown-screen { background:#000 !important; }
 .countdown-screen .bg { display:none !important; }
 
+/* 全ボタン同一サイズ厳守 */
 .big-btn { 
-  padding:13px 26px; 
-  font-size:1.6rem; 
+  padding:16px 32px; 
+  font-size:1.9rem; 
   background:#ffeb3b; 
   border:none; 
   border-radius:20px; 
-  box-shadow:0 8px 0 #c8b900; 
-  margin:15px 0; 
+  box-shadow:0 10px 0 #c8b900; 
+  margin:10px 0;  /* ボタン間隔統一 */
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
-  min-width:240px; 
+  min-width:280px; 
   text-align:center;
 }
-.big-btn:active { transform:translateY(8px); box-shadow:0 0 0 #c8b900; }
+.big-btn:active { transform:translateY(10px); box-shadow:0 0 0 #c8b900; }
 
-#title .big-btn { margin-top:140px; }
+#title .big-btn { margin-top:140px; margin-bottom:auto; } /* スタートは下寄せ */
 
-.share-btn { 
-  background:#1da1f2; 
-  box-shadow:0 8px 0 #0d8bd9; 
-}
+.share-btn { background:#1da1f2; box-shadow:0 10px 0 #0d8bd9; }
 .share-btn:active { box-shadow:0 0 0 #0d8bd9; }
 
-.message { 
-  font-size:2.1rem; color:white; text-shadow:4px 4px 10px black; font-weight:900; 
-  text-align:center; margin-bottom:80px; line-height:1.5; 
-}
+.message { font-size:2.1rem; color:white; text-shadow:4px 4px 10px black; font-weight:900; text-align:center; margin-bottom:80px; line-height:1.5; }
 
 .countdown { font-size:12rem; color:#ffeb3b; font-weight:900; text-shadow:0 0 30px #ffeb3b; animation:pulse 1.2s infinite; }
 @keyframes pulse { 0%,100% {transform:scale(1)} 50% {transform:scale(1.1)} }
@@ -57,11 +52,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 .cell { background:rgba(255,255,255,0.95); border-radius:12px; font-size:3rem; font-weight:900; display:flex; align-items:center; justify-content:center; aspect-ratio:1/1; user-select:none; box-shadow:0 8px 0 rgba(0,0,0,0.2); transition:all 0.1s; }
 .cell:active { transform:translateY(8px); box-shadow:0 0 0 rgba(0,0,0,0.2); }
 
-.wrong-text { 
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  font-size:7rem; color:#ff0044; font-weight:900; text-shadow:0 0 35px black;
-  opacity:0; pointer-events:none; white-space:nowrap; letter-spacing:12px;
-}
+.wrong-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:7rem; color:#ff0044; font-weight:900; text-shadow:0 0 35px black; opacity:0; pointer-events:none; white-space:nowrap; letter-spacing:12px; }
 
 .god-pop { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; flex-direction:column; z-index:100; }
 .god-text { font-size:20rem; color:#ffeb3b; text-shadow:0 0 50px #fff, 0 0 100px #ff0; animation:godGlow 1.5s ease-out; }
@@ -70,37 +61,30 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト画面：要望通り配置＋サイズ調整 */
+/* リザルト画面調整：厳守！！ */
 .result-box { 
-  width:100%; height:100%; 
-  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;  /* 上寄せスタート */
-  padding-top:25%;   /* 上から約1/4位置にランク文字開始 */
-  color:white; text-shadow:4px 4px 10px black; 
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;  /* 上寄せ開始 */
+  padding-top:15vh;  /* ① 上から約1/4位置にランク文字配置（画面高さの15%下） */
+  width:100%; height:100%; max-width:95%; text-align:center; color:white; text-shadow:4px 4px 10px black;
 }
 
-/* ランク文字：PCで背景内に絶対収まるよう大幅に小さく */
+/* ランク文字：PCで小さくして絶対溢れず中央 */
 .result-box h1 { 
-  font-size:clamp(2.5rem, 5vw, 4.5rem);  /* PCで最大4.5remに抑えて飛び出しゼロ！ */
-  margin:10px 0; word-break:keep-all; line-height:1.0;
-  text-align:center; white-space:nowrap;
+  font-size:clamp(3rem, 7vw, 5.5rem);  /* PCで最大5.5remに制限 → 溢れ防止 */
+  margin:20px 0; white-space:nowrap; text-align:center;
 }
 
-/* クリアタイム：1.5倍（読みやすいサイズ） */
+/* クリアタイム：今の1.5倍に大きく（前回2.6rem基準で3.9rem） */
 .time-text { 
-  font-size:3.3rem !important;   /* 明確に1.5倍指定 */
-  margin:20px 0 60px 0;          /* 下にスペースでボタン位置調整 */
-  white-space:nowrap;
+  font-size:3.9rem !important;   /* ③ 1.5倍厳守 */
+  margin:30px 0; white-space:nowrap;  /* 改行絶対禁止 */
 }
 
-/* ボタン：画面下1/3に配置（flexで自動） */
-.result-box > .big-btn {
-  margin-top:auto;               /* 下寄せ */
-  margin-bottom:15%;             /* 下から1/3くらい */
+/* ボタンエリア：画面下から1/3位置（flexで下寄せ） */
+.result-box > .big-btn { 
+  margin-top:auto;  /* 上の要素を押し上げて下寄せ */
+  margin-bottom:10vh;  /* ④ 下から1/3（約33%上）に「もう一度遊ぶ」 */
 }
 
-/* PC調整（さらに安全に小さく） */
-@media (min-width:768px) {
-  .result-box { padding-top:20%; }
-  .result-box h1 { font-size:clamp(3rem, 5vw, 4.8rem); }
-  .time-text { font-size:3.8rem !important; }
-}
+/* 共有ボタンをすぐ下に */
+.share-btn { margin-top:20px !important; margin-bottom:0; }  /* すぐ下に配置 */
