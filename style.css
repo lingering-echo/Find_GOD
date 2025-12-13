@@ -37,7 +37,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 .share-btn { 
   background:#1da1f2; 
   box-shadow:0 10px 0 #0d8bd9; 
-  margin-top:20px;   /* すぐ下に配置 */
+  margin-top:20px;   /* もう一度遊ぶの下に少し間隔 */
 }
 .share-btn:active { box-shadow:0 0 0 #0d8bd9; }
 
@@ -70,41 +70,56 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト画面：指示通りのレイアウト再配置！！ */
+/* リザルト画面：要望通りの座標指定配置 */
 .result-box { 
-  position:relative;
-  width:100%; height:100%;
-  display:flex; flex-direction:column; justify-content:flex-start; align-items:center;
-  padding-top:25vh;   /* ← 上から1/4位置にテキスト配置（画面高さの25%下） */
-  z-index:1;
+  position:relative; 
+  width:100%; height:100%; 
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  padding:0;
+}
+
+/* ①リザルト文字＋クリアタイムを背景上から1/4の位置に */
+#rankText, .time-text {
+  position:absolute;
+  top:25%;            /* 上から1/4 */
+  left:50%;
+  transform:translate(-50%, -50%);
   text-align:center;
+  width:100%;
 }
 
-.result-box h1 { 
-  font-size:clamp(3.5rem, 5vw, 4rem);
-  margin:0 0 20px 0;
-  color:white; text-shadow:4px 4px 10px black;
-}
-
-.time-text { 
-  font-size:4rem !important;
-  margin:0 0 40px 0;
-  color:white; text-shadow:4px 4px 10px black;
+/* ランク文字（PCでのみ66%サイズ） */
+#rankText { 
+  font-size:5.5rem; 
+  color:white; text-shadow:4px 4px 10px black; font-weight:900;
   white-space:nowrap;
 }
-
-/* ボタンエリア：下から1/3位置（画面高さの約66%下） */
-.result-box .big-btn:first-of-type {  /* もう一度遊ぶ */
-  position:absolute;
-  bottom:33vh;   /* ← 下から1/3位置 */
-}
-
-.result-box .share-btn {  /* Xで神を布教する */
-  position:absolute;
-  bottom:23vh;   /* ← もう一度遊ぶのすぐ下 */
-}
-
 @media (min-width:768px) {
-  .result-box h1 { font-size:clamp(4rem, 7vw, 6.5rem); }
-  .time-text { font-size:2.5rem !important; }
+  #rankText { font-size:3.63rem; }  /* 5.5remの66% ≈ 3.63rem */
+}
+
+/* クリアタイム文字（全体の2倍サイズ） */
+.time-text { 
+  font-size:4.4rem !important;   /* 通常の2倍（2.2remの2倍） */
+  color:white; text-shadow:4px 4px 10px black; font-weight:900;
+  white-space:nowrap;
+}
+@media (min-width:768px) {
+  .time-text { font-size:5.0rem !important; }  /* PCでも少し大きく */
+}
+
+/* ②もう一度遊ぶボタンを背景下から1/3の位置に */
+.result-box .big-btn:nth-of-type(1) {  /* もう一度遊ぶ */
+  position:absolute;
+  bottom:33.33%;        /* 下から1/3 */
+  left:50%;
+  transform:translate(-50%, 50%);
+}
+
+/* 共有ボタンをもう一度遊ぶの少し下に */
+#shareBtn {
+  position:absolute;
+  bottom:20%;           /* もう一度遊ぶの下に配置 */
+  left:50%;
+  transform:translate(-50%, 50%);
 }
