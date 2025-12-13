@@ -2,22 +2,22 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>神を探せ！</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <!-- タイトル画面 -->
   <div id="title" class="screen active">
-    <img src="images/title.png" class="bg">
+    <img src="images/title.png" class="bg" alt="タイトル">
     <button id="startBtn" class="big-btn">スタート</button>
   </div>
 
   <!-- 説明＆カウントダウン画面 -->
   <div id="intro" class="screen">
-    <img src="images/countdown.png" class="bg">
+    <img src="images/countdown.png" class="bg" alt="カウントダウン背景">
     <div class="message">神を見つけて<br>タップしよう！</div>
     <div id="countdown" class="countdown">3</div>
   </div>
@@ -26,11 +26,11 @@
   <div id="game" class="screen">
     <div id="timer">0.00秒</div>
     <div id="stage">ステージ <span id="stageNum">1</span>/5</div>
-    <div id="wrong" class="wrong-text">咎人！</div>
+    <div id="wrong">咎人！</div>
     <div id="grid"></div>
   </div>
 
-  <!-- 正解時のキラキラ神ポップアップ -->
+  <!-- 神ポップアップ -->
   <div id="godPop" class="god-pop">
     <div class="god-text">神</div>
     <div class="sparkle">✨</div>
@@ -39,21 +39,21 @@
     <div class="sparkle">✨</div>
   </div>
 
-  <!-- 次ステージへカウントダウン -->
+  <!-- 次ステージカウントダウン -->
   <div id="nextStage" class="screen">
-    <img src="images/countdown.png" class="bg">
+    <img src="images/countdown.png" class="bg" alt="カウントダウン背景">
     <div class="message">正解！<br>次のステージが<br>はじまるよ！</div>
     <div class="countdown" id="nextCount">3</div>
   </div>
 
   <!-- リザルト画面 -->
   <div id="result" class="screen">
-    <img id="resultBg" class="bg">
+    <img id="resultBg" class="bg" alt="リザルト背景">
     <div class="result-box">
       <h1 id="rankText">神</h1>
       <div class="result-time">クリアタイム <span id="finalTime">0.00</span>秒</div>
       <button class="big-btn" onclick="location.reload()">もう一度遊ぶ</button>
-      <button class="big-btn share-btn" id="shareBtn">Xで神を布教する</button>
+      <button class="big-btn" id="shareBtn">Xで神を布教する</button>
     </div>
   </div>
 
