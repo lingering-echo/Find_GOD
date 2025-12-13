@@ -1,99 +1,151 @@
 * { margin:0; padding:0; box-sizing:border-box; }
-html, body { height:100%; overflow:hidden; background:#000; font-family:'Noto Sans JP', sans-serif; }
-body { display:flex; align-items:center; justify-content:center; }
+body, html { height:100%; overflow:hidden; font-family:'Noto Sans JP', sans-serif; }
 
-/* ゲーム本体コンテナ：背景画像サイズに固定 + 最大1.3倍スケール */
-.game-container {
-  position:relative;
-  width:1080px;   /* あなたの縦長イラストサイズに仮定（必要なら変更） */
-  height:1920px;
-  max-width:90vw;
-  max-height:90vh;
-  max-width:calc(90vw * 1.3);
-  max-height:calc(90vh * 1.3);
-  transform:scale(min(1.3, calc(100vw / 1080), calc(100vh / 1920)));
-  transform-origin:center;
-  box-shadow:0 0 60px rgba(255,235,59,0.4);
-  border-radius:40px;
-  overflow:hidden;
-}
-
-/* 全ての画面をコンテナ内に */
 .screen {
-  position:absolute;
-  top:0; left:0;
-  width:100%;
-  height:100%;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background: #000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
-.screen.active { display:flex; }
+.screen.active { display: flex; }
 
-/* 背景画像：containでフル表示・見切れなし */
 .bg {
-  position:absolute;
-  top:0; left:0;
-  width:100%;
-  height:100%;
-  object-fit:contain;   /* ← フル表示保証！！ */
-  z-index:-1;
-  background:#000;      /* 余白黒 */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
 }
 
-/* カウントダウン画面背景強制非表示 */
-#intro, #nextStage { background:#000 !important; }
-#intro .bg, #nextStage .bg { display:none !important; }
+/* ← ここから追加！！カウントダウン画面の背景画像を完全に非表示 */
+#intro .bg, #nextStage .bg {
+  display: none !important;
+}
+#intro, #nextStage {
+  background: #000 !important;  /* 真っ黒背景でシンプルに */
+}
 
-/* 全ボタン完全統一 */
+/* 全ボタン同一化（前回のまま） */
 .big-btn {
-  padding:20px 40px;
-  font-size:48px;
-  background:#ffeb3b;
-  color:black;
-  border:none;
-  border-radius:30px;
-  box-shadow:0 15px 0 #c8b900;
-  margin-top:200px;    /* スタートボタン位置 */
-  cursor:pointer;
-  font-weight:900;
-  white-space:nowrap;
-  min-width:500px;
-  text-align:center;
+  padding: 20px 50px;
+  font-size: 2.2rem;
+  background: #ffeb3b;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 10px 0 #c8b900;
+  margin-top: 100px;
+  cursor: pointer;
+  font-weight: 900;
+  white-space: nowrap;
 }
-.big-btn:active { transform:translateY(15px); box-shadow:0 0 0 #c8b900; }
+.big-btn:active {
+  transform: translateY(10px);
+  box-shadow: 0 0 0 #c8b900;
+}
 
 .share-btn {
-  background:#1da1f2 !important;
-  color:white !important;
-  box-shadow:0 15px 0 #0d8bd9 !important;
+  background: #1da1f2 !important;
+  box-shadow: 0 10px 0 #0d8bd9 !important;
 }
-.share-btn:active { box-shadow:0 0 0 #0d8bd9 !important; }
+.share-btn:active {
+  box-shadow: 0 0 0 #0d8bd9 !important;
+}
 
-/* その他テキスト自動調整・見切れ防止 */
-.message { font-size:60px; color:white; text-shadow:5px 5px 15px black; font-weight:900; text-align:center; margin-bottom:100px; line-height:1.5; white-space:pre-line; }
-.countdown { font-size:400px; color:#ffeb3b; font-weight:900; text-shadow:0 0 50px #ffeb3b; animation:pulse 1.2s infinite; }
-@keyframes pulse { 0%,100% {transform:scale(1)} 50% {transform:scale(1.1)} }
+.message {
+  font-size: 2.2rem;
+  color: white;
+  text-shadow: 4px 4px 10px rgba(0,0,0,0.9);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 100px;
+  white-space: pre-line;
+}
 
-#timer, #stage { position:absolute; font-size:50px; color:white; background:rgba(0,0,0,0.7); padding:20px 40px; border-radius:20px; font-weight:bold; z-index:10; }
-#timer { top:30px; right:30px; }
-#stage { top:30px; left:30px; }
+.countdown {
+  font-size: 12rem;
+  color: #ffeb3b;
+  font-weight: 900;
+  text-shadow: 0 0 30px #ffeb3b;
+  animation: pulse 1.2s infinite;
+}
 
-#grid { display:grid; gap:15px; padding:30px; width:95%; height:70%; justify-content:center; align-content:center; }
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
 
-.cell { background:rgba(255,255,255,0.95); border-radius:30px; font-size:150px; font-weight:900; display:flex; align-items:center; justify-content:center; aspect-ratio:1/1; user-select:none; box-shadow:0 20px 0 rgba(0,0,0,0.2); transition:all 0.1s; }
-.cell:active { transform:translateY(20px); box-shadow:0 0 0 rgba(0,0,0,0.2); }
+#timer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2rem;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 10px 20px;
+  border-radius: 15px;
+  font-weight: bold;
+}
 
-.wrong-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:200px; color:#ff0044; font-weight:900; text-shadow:0 0 60px black; opacity:0; pointer-events:none; white-space:nowrap; letter-spacing:30px; }
+#stage {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 1.8rem;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 10px 20px;
+  border-radius: 15px;
+}
 
-.god-pop { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; flex-direction:column; z-index:100; }
-.god-text { font-size:600px; color:#ffeb3b; text-shadow:0 0 100px #fff, 0 0 200px #ff0; animation:godGlow 1.5s ease-out; }
-.sparkle { position:absolute; font-size:200px; animation:sparkleAnim 1.5s ease-out forwards; pointer-events:none; }
-@keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
-@keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
+#grid {
+  display: grid;
+  gap: 8px;
+  padding: 20px;
+  max-width: 95vw;
+  max-height: 70vh;
+  justify-content: center;
+  align-content: center;
+}
 
-.result-box { text-align:center; color:white; text-shadow:5px 5px 15px black; padding:40px; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-.result-box h1 { font-size:200px; margin:40px 0; white-space:nowrap; }
-.result-box h1[data-rank="ワンヘッド"], .result-box h1[data-rank="ハーフライフ"] { font-size:140px !important; }
-.result-time { font-size:100px; margin:60px 0; white-space:nowrap; }
+.cell {
+  background: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  font-size: 4rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1/1;
+  user-select: none;
+  box-shadow: 0 8px 0 rgba(0,0,0,0.2);
+  transition: all 0.1s;
+}
+
+.cell:active {
+  transform: translateY(8px);
+  box-shadow: 0 0 0 rgba(0,0,0,0.2);
+}
+
+.wrong-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6rem;
+  color: #ff0044;
+  font-weight: 900;
+  text-shadow: 0 0 30px black;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: 10px;
+}
+
+.god-pop {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  display
