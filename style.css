@@ -58,26 +58,37 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
+/* リザルト画面抜本見直し：絶対1行・自動サイズ調整・中央揃え完璧 */
 .result-box { 
-  text-align:center; color:white; text-shadow:4px 4px 10px black; padding:20px; max-width:95%; 
+  text-align:center; color:white; text-shadow:4px 4px 10px black; padding:20px; 
   width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
 }
 .result-box h1 { 
-  font-size:5.5rem; margin:20px 0; word-break:keep-all; line-height:1.0;
-  text-align:center; width:auto; max-width:100%; white-space:nowrap;
+  font-size:12vw;            /* 画面幅に応じて自動調整（スマホで小さく、PCで大きく） */
+  margin:20px 0; word-break:keep-all; line-height:1.0; white-space:nowrap;
+  max-font-size:90px;        /* 最大制限 */
+  text-align:center;
 }
 .result-box h1[data-rank="ワンヘッド"],
 .result-box h1[data-rank="ハーフライフ"] {
-  font-size:3.5rem !important;   /* ← 1080px幅PCでも絶対1行・中央 */
+  font-size:9vw !important;  /* 長いランクはさらに小さく自動調整 */
+}
+.result-time { 
+  font-size:7vw;             /* クリアタイムも自動調整・絶対1行 */
+  margin:30px 0; white-space:nowrap; word-break:keep-all;
+  text-align:center;
 }
 @media (min-width:768px) {
-  .result-box h1 { font-size:6.8rem; }
+  .result-box h1 { font-size:8vw; }
   .result-box h1[data-rank="ワンヘッド"],
-  .result-box h1[data-rank="ハーフライフ"] { font-size:4.5rem !important; }
+  .result-box h1[data-rank="ハーフライフ"] { font-size:6vw !important; }
+  .result-time { font-size:5vw; }
 }
-.result-box p { font-size:2.6rem; margin:30px 0; }
 .share-btn { 
   background:#1da1f2; margin-top:30px; box-shadow:0 10px 0 #0d8bd9; 
-  font-size:1.8rem; white-space:nowrap; padding:16px 32px;
+  font-size:4.5vw; white-space:nowrap; padding:16px 32px;
+}
+@media (min-width:768px) {
+  .share-btn { font-size:3vw; }
 }
 .share-btn:active { transform:translateY(10px); box-shadow:0 0 0 #0d8bd9; }
