@@ -17,29 +17,28 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 .countdown-screen { background:#000 !important; }
 .countdown-screen .bg { display:none !important; }
 
-/* 全てのボタンを完全に同一サイズに統一！！ */
+/* 全てのボタンを0.8倍サイズに調整（統一） */
 .big-btn { 
-  padding:16px 32px;           /* 統一 */
-  font-size:1.9rem;            /* 統一 */
+  padding:13px 26px;           /* 0.8倍 */
+  font-size:1.6rem;            /* 0.8倍 */
   background:#ffeb3b; 
   border:none; 
   border-radius:20px; 
-  box-shadow:0 10px 0 #c8b900; 
-  margin-top:60px;             /* 統一（スタートは別途調整済み） */
+  box-shadow:0 8px 0 #c8b900;  /* 影も調整 */
+  margin-top:60px; 
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
-  min-width:280px;             /* 最低幅統一でバランス */
+  min-width:240px;             /* バランス調整 */
   text-align:center;
 }
-.big-btn:active { transform:translateY(10px); box-shadow:0 0 0 #c8b900; }
+.big-btn:active { transform:translateY(8px); box-shadow:0 0 0 #c8b900; }
 
-/* スタートボタンは少し下に（margin-topで調整済み） */
-#title .big-btn { margin-top:140px; }
+#title .big-btn { margin-top:140px; } /* スタートは少し下げ */
 
 .share-btn { 
   background:#1da1f2; 
-  box-shadow:0 10px 0 #0d8bd9; 
+  box-shadow:0 8px 0 #0d8bd9; 
 }
 .share-btn:active { box-shadow:0 0 0 #0d8bd9; }
 
@@ -77,22 +76,22 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
 }
 
-/* リザルトランク文字：スマホ正しいサイズ維持・PCで飛び出さないようclampで自動調整 */
+/* リザルトランク文字：PCで背景から飛び出さないようさらに小さく調整 */
 .result-box h1 { 
-  font-size:clamp(3.5rem, 8vw, 6rem);  /* スマホ小さい・PC大きすぎない最適サイズ */
+  font-size:clamp(3rem, 7vw, 5.5rem);  /* PCで最大5.5remに制限（飛び出し防止） */
   margin:20px 0; word-break:keep-all; line-height:1.0;
   text-align:center; white-space:nowrap;
 }
 
-/* クリアタイムテキスト：小さくして絶対1行 */
+/* クリアタイムテキスト：1.5倍（前回の2.2rem → 3.3rem） */
 .time-text { 
-  font-size:2.2rem !important;   /* 小さく固定 */
+  font-size:3.3rem !important; 
   margin:20px 0; 
-  white-space:nowrap;            /* 改行禁止 */
+  white-space:nowrap;
 }
 
-/* PCでさらに調整 */
+/* PC調整 */
 @media (min-width:768px) {
-  .result-box h1 { font-size:clamp(4rem, 7vw, 6.5rem); }
-  .time-text { font-size:2.5rem !important; }
+  .result-box h1 { font-size:clamp(3.5rem, 6vw, 5.8rem); }
+  .time-text { font-size:3.8rem !important; }
 }
