@@ -1,151 +1,80 @@
 * { margin:0; padding:0; box-sizing:border-box; }
-body, html { height:100%; overflow:hidden; font-family:'Noto Sans JP', sans-serif; }
+html, body { height:100%; overflow:hidden; background:#000; }
+body { display:flex; align-items:center; justify-content:center; font-family:'Noto Sans JP', sans-serif; }
 
 .screen {
-  position: fixed;
-  top:0; left:0; width:100%; height:100%;
-  background: #000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:100vw; height:100vh; max-width:100vmin; max-height:100vmax;
+  background:#000; display:none; align-items:center; justify-content:center; flex-direction:column;
 }
-.screen.active { display: flex; }
+.screen.active { display:flex; }
 
-.bg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
-}
+@media (orientation: landscape) { .screen { width:56.25vh; height:100vh; } }
+@media (orientation: portrait)  { .screen { width:100vw; height:177.78vw; } }
 
-/* ← ここから追加！！カウントダウン画面の背景画像を完全に非表示 */
-#intro .bg, #nextStage .bg {
-  display: none !important;
-}
-#intro, #nextStage {
-  background: #000 !important;  /* 真っ黒背景でシンプルに */
-}
+.bg { position:absolute; width:100%; height:100%; object-fit:cover; z-index:-1; }
 
-/* 全ボタン同一化（前回のまま） */
-.big-btn {
-  padding: 20px 50px;
-  font-size: 2.2rem;
-  background: #ffeb3b;
-  border: none;
-  border-radius: 20px;
-  box-shadow: 0 10px 0 #c8b900;
-  margin-top: 100px;
-  cursor: pointer;
-  font-weight: 900;
-  white-space: nowrap;
+/* カウントダウン画面だけ背景削除（黒背景） */
+.countdown-screen { background:#000 !important; }
+.countdown-screen .bg { display:none !important; }
+
+.big-btn { 
+  padding:18px 36px; 
+  font-size:2.0rem; 
+  background:#ffeb3b; 
+  border:none; 
+  border-radius:20px; 
+  box-shadow:0 12px 0 #c8b900; 
+  margin-top:140px; 
+  cursor:pointer; 
+  font-weight:900; 
+  white-space:nowrap;
+  text-align:center;
 }
-.big-btn:active {
-  transform: translateY(10px);
-  box-shadow: 0 0 0 #c8b900;
+.big-btn:active { transform:translateY(12px); box-shadow:0 0 0 #c8b900; }
+
+.message { 
+  font-size:2.1rem; color:white; text-shadow:4px 4px 10px black; font-weight:900; 
+  text-align:center; margin-bottom:80px; line-height:1.5; 
 }
 
-.share-btn {
-  background: #1da1f2 !important;
-  box-shadow: 0 10px 0 #0d8bd9 !important;
-}
-.share-btn:active {
-  box-shadow: 0 0 0 #0d8bd9 !important;
+.countdown { font-size:12rem; color:#ffeb3b; font-weight:900; text-shadow:0 0 30px #ffeb3b; animation:pulse 1.2s infinite; }
+@keyframes pulse { 0%,100% {transform:scale(1)} 50% {transform:scale(1.1)} }
+
+#timer { position:absolute; top:15px; right:15px; font-size:1.8rem; color:white; background:rgba(0,0,0,0.6); padding:8px 16px; border-radius:12px; font-weight:bold; z-index:10; }
+#stage { position:absolute; top:15px; left:15px; font-size:1.7rem; color:white; background:rgba(0,0,0,0.6); padding:8px 16px; border-radius:12px; z-index:10; }
+
+#grid { display:grid; gap:5px; padding:10px; width:90vmin; height:90vmin; max-width:90vw; max-height:65vh; justify-content:center; align-content:center; }
+
+.cell { background:rgba(255,255,255,0.95); border-radius:12px; font-size:3rem; font-weight:900; display:flex; align-items:center; justify-content:center; aspect-ratio:1/1; user-select:none; box-shadow:0 8px 0 rgba(0,0,0,0.2); transition:all 0.1s; }
+.cell:active { transform:translateY(8px); box-shadow:0 0 0 rgba(0,0,0,0.2); }
+
+.wrong-text { 
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-size:7rem; color:#ff0044; font-weight:900; text-shadow:0 0 35px black;
+  opacity:0; pointer-events:none; white-space:nowrap; letter-spacing:12px;
 }
 
-.message {
-  font-size: 2.2rem;
-  color: white;
-  text-shadow: 4px 4px 10px rgba(0,0,0,0.9);
-  font-weight: 900;
-  text-align: center;
-  margin-bottom: 100px;
-  white-space: pre-line;
-}
+.god-pop { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; flex-direction:column; z-index:100; }
+.god-text { font-size:20rem; color:#ffeb3b; text-shadow:0 0 50px #fff, 0 0 100px #ff0; animation:godGlow 1.5s ease-out; }
+.sparkle { position:absolute; font-size:6rem; animation:sparkleAnim 1.5s ease-out forwards; pointer-events:none; }
 
-.countdown {
-  font-size: 12rem;
-  color: #ffeb3b;
-  font-weight: 900;
-  text-shadow: 0 0 30px #ffeb3b;
-  animation: pulse 1.2s infinite;
-}
+@keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
+@keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-@keyframes pulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+/* リザルト：自動サイズ調整で中央・1行・見切れなし */
+.result-box { 
+  text-align:center; color:white; text-shadow:4px 4px 10px black; padding:20px; max-width:95%; 
+  width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
 }
-
-#timer {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 2rem;
-  color: white;
-  background: rgba(0,0,0,0.5);
-  padding: 10px 20px;
-  border-radius: 15px;
-  font-weight: bold;
+.result-box h1 { 
+  font-size:clamp(3rem, 10vw, 7rem);  /* ← 自動サイズ調整！画面幅に応じて最適サイズ */
+  margin:20px 0; word-break:keep-all; line-height:1.0;
+  text-align:center; width:auto; max-width:100%; white-space:nowrap;
 }
-
-#stage {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  font-size: 1.8rem;
-  color: white;
-  background: rgba(0,0,0,0.5);
-  padding: 10px 20px;
-  border-radius: 15px;
+.result-box p { font-size:2.6rem; margin:30px 0; }
+.share-btn { 
+  background:#1da1f2; margin-top:30px; box-shadow:0 10px 0 #0d8bd9; 
+  font-size:1.8rem; white-space:nowrap; padding:16px 32px;
 }
-
-#grid {
-  display: grid;
-  gap: 8px;
-  padding: 20px;
-  max-width: 95vw;
-  max-height: 70vh;
-  justify-content: center;
-  align-content: center;
-}
-
-.cell {
-  background: rgba(255,255,255,0.9);
-  border-radius: 12px;
-  font-size: 4rem;
-  font-weight: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 1/1;
-  user-select: none;
-  box-shadow: 0 8px 0 rgba(0,0,0,0.2);
-  transition: all 0.1s;
-}
-
-.cell:active {
-  transform: translateY(8px);
-  box-shadow: 0 0 0 rgba(0,0,0,0.2);
-}
-
-.wrong-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 6rem;
-  color: #ff0044;
-  font-weight: 900;
-  text-shadow: 0 0 30px black;
-  opacity: 0;
-  pointer-events: none;
-  white-space: nowrap;
-  letter-spacing: 10px;
-}
-
-.god-pop {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
-  display
+.share-btn:active { transform:translateY(10px); box-shadow:0 0 0 #0d8bd9; }

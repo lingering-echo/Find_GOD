@@ -15,9 +15,8 @@
     <button id="startBtn" class="big-btn">スタート</button>
   </div>
 
-  <!-- 説明＆カウントダウン画面 -->
-  <div id="intro" class="screen">
-    <img src="images/countdown.png" class="bg">
+  <!-- 説明＆カウントダウン画面（背景削除） -->
+  <div id="intro" class="screen countdown-screen">
     <div class="message">神を見つけて<br>タップしよう！</div>
     <div id="countdown" class="countdown">3</div>
   </div>
@@ -39,9 +38,8 @@
     <div class="sparkle">✨</div>
   </div>
 
-  <!-- 次ステージへカウントダウン -->
-  <div id="nextStage" class="screen">
-    <img src="images/countdown.png" class="bg">
+  <!-- 次ステージへカウントダウン（背景削除） -->
+  <div id="nextStage" class="screen countdown-screen">
     <div class="message">正解！<br>次のステージが<br>はじまるよ！</div>
     <div class="countdown" id="nextCount">3</div>
   </div>
@@ -51,7 +49,7 @@
     <img id="resultBg" class="bg">
     <div class="result-box">
       <h1 id="rankText">神</h1>
-      <div class="result-time">クリアタイム <span id="finalTime">0.00</span>秒</div>
+      <p>クリアタイム <span id="finalTime">0.00</span>秒</p>
       <button class="big-btn" onclick="location.reload()">もう一度遊ぶ</button>
       <button class="big-btn share-btn" id="shareBtn">Xで神を布教する</button>
     </div>
