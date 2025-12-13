@@ -18,32 +18,35 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 .countdown-screen { background:#000 !important; }
 .countdown-screen .bg { display:none !important; }
 
-/* 全てのボタンを完全に同一サイズに統一！！ */
-.big-btn { 
-  padding:18px 40px; 
-  font-size:2.0rem; 
-  background:#ffeb3b; 
+/* 全てのボタンを共有ボタンを基準に0.8倍サイズに統一！！ */
+.big-btn, .share-btn {
+  padding:14px 32px;              /* ← 0.8倍相当に縮小 */
+  font-size:1.8rem;               /* ← 文字も小さく */
   border:none; 
   border-radius:20px; 
-  box-shadow:0 12px 0 #c8b900; 
-  margin:20px 0;     /* 上下マージン統一 */
+  box-shadow:0 10px 0 #c8b900; 
+  margin:15px 0;                  /* 上下間隔調整 */
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
   text-align:center;
-  min-width:280px;   /* 最小幅統一で見た目揃え */
+  min-width:240px;                /* 幅統一 */
 }
-.big-btn:active { transform:translateY(12px); box-shadow:0 0 0 #c8b900; }
 
-/* シェアボタンも完全に同一スタイル */
-.share-btn { 
-  background:#1da1f2 !important; 
-  box-shadow:0 12px 0 #0d8bd9 !important; 
-  padding:18px 40px !important; 
-  font-size:2.0rem !important; 
-  min-width:280px !important;
+/* スタート・もう一度遊ぶボタン（黄色） */
+.big-btn {
+  background:#ffeb3b; 
+  box-shadow:0 10px 0 #c8b900; 
+  margin-top:180px;               /* ← スタートボタンをさらに下に下げた！！ */
 }
-.share-btn:active { transform:translateY(12px); box-shadow:0 0 0 #0d8bd9 !important; }
+.big-btn:active { transform:translateY(10px); box-shadow:0 0 0 #c8b900; }
+
+/* 共有ボタン（青） */
+.share-btn {
+  background:#1da1f2 !important; 
+  box-shadow:0 10px 0 #0d8bd9 !important; 
+}
+.share-btn:active { transform:translateY(10px); box-shadow:0 0 0 #0d8bd9 !important; }
 
 .message { 
   font-size:2.1rem; color:white; text-shadow:4px 4px 10px black; font-weight:900; 
@@ -74,21 +77,25 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト：PCで文字が飛び出さない＋クリアタイム改行防止＋レイアウト調整 */
+/* リザルト：スマホ上寄り・隙間詰め・PC文字小さく・改行禁止 */
 .result-box { 
   text-align:center; color:white; text-shadow:4px 4px 10px black; padding:20px; max-width:95%; 
-  width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  margin-top:-80px;   /* ← 全体を上寄りに */
+  width:100%; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;  /* ← 上寄り */
+  margin-top:-120px;   /* ← スマホでさらに上に！！ */
 }
 .result-box h1 { 
-  font-size:clamp(3.5rem, 8vw, 6rem);  /* PCで大きすぎない自動調整 */
-  margin:10px 0 30px 0;  /* 下マージン増やしてボタンとの間隔 */
+  font-size:clamp(3.5rem, 8vw, 5.8rem);  /* ← PCで小さく調整 */
+  margin:10px 0 10px 0;   /* ← 隙間詰め！！ */
+  white-space:nowrap;
 }
 .result-box p { 
-  font-size:2.2rem;   /* ← ほんの少し小さくして改行防止 */
-  margin:20px 0 60px 0;  /* 下マージン増やしてボタン下寄り */
-  white-space:nowrap;   /* 絶対改行させない */
+  font-size:2.1rem;       /* ← 少し小さく */
+  margin:10px 0 80px 0;   /* ← 上隙間詰め、下にボタン間隔 */
+  white-space:nowrap;     /* ← 絶対改行禁止！！ */
 }
-.result-box .big-btn { 
-  margin:15px 0;   /* ボタン同士の間隔調整 */
+
+/* スマホのリザルトボタンをさらに下に */
+@media (max-width:767px) {
+  .result-box { margin-top:-150px; }
+  .result-box .big-btn { margin-top:30px; }
 }
