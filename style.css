@@ -14,81 +14,90 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 
 .bg { position:absolute; width:100%; height:100%; object-fit:cover; z-index:-1; }
 
+/* カウントダウン画面（introとnextStage）だけ背景画像非表示！！ */
+#intro .bg, #nextStage .bg {
+  display:none !important;   /* ← これでcountdown.png表示しない */
+}
+
+/* カウントダウン画面の背景を真っ黒に（シンプルに） */
+#intro, #nextStage {
+  background:#000 !important;   /* 真っ黒背景 */
+}
+
 .big-btn { 
-  padding:18px 36px; 
-  font-size:2.0rem; 
+  padding:16px 32px; 
+  font-size:5vw; 
   background:#ffeb3b; 
+  color:black;
   border:none; 
   border-radius:20px; 
-  box-shadow:0 12px 0 #c8b900; 
-  margin-top:140px; 
+  box-shadow:0 10px 0 #c8b900; 
+  margin-top:40px; 
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
   text-align:center;
+  min-height:60px;
+  width:70vw; 
+  max-width:400px;
 }
-.big-btn:active { transform:translateY(12px); box-shadow:0 0 0 #c8b900; }
+.big-btn:active { transform:translateY(10px); box-shadow:0 0 0 #c8b900; }
+
+.share-btn { 
+  background:#1da1f2 !important; 
+  color:white !important;
+  box-shadow:0 10px 0 #0d8bd9 !important; 
+}
+.share-btn:active { box-shadow:0 0 0 #0d8bd9 !important; }
 
 .message { 
-  font-size:2.1rem; color:white; text-shadow:4px 4px 10px black; font-weight:900; 
-  text-align:center; margin-bottom:80px; line-height:1.5; 
+  font-size:6vw; color:white; text-shadow:4px 4px 10px black; font-weight:900; 
+  text-align:center; margin-bottom:80px; line-height:1.5; white-space:pre-line;
 }
 
-.countdown { font-size:12rem; color:#ffeb3b; font-weight:900; text-shadow:0 0 30px #ffeb3b; animation:pulse 1.2s infinite; }
+.countdown { font-size:30vw; color:#ffeb3b; font-weight:900; text-shadow:0 0 30px #ffeb3b; animation:pulse 1.2s infinite; }
 @keyframes pulse { 0%,100% {transform:scale(1)} 50% {transform:scale(1.1)} }
 
-#timer { position:absolute; top:15px; right:15px; font-size:1.8rem; color:white; background:rgba(0,0,0,0.6); padding:8px 16px; border-radius:12px; font-weight:bold; z-index:10; }
-#stage { position:absolute; top:15px; left:15px; font-size:1.7rem; color:white; background:rgba(0,0,0,0.6); padding:8px 16px; border-radius:12px; z-index:10; }
+#timer { position:absolute; top:4vw; right:4vw; font-size:5vw; color:white; background:rgba(0,0,0,0.6); padding:2vw 4vw; border-radius:3vw; font-weight:bold; z-index:10; }
+#stage { position:absolute; top:4vw; left:4vw; font-size:4.5vw; color:white; background:rgba(0,0,0,0.6); padding:2vw 4vw; border-radius:3vw; z-index:10; }
 
-#grid { display:grid; gap:5px; padding:10px; width:90vmin; height:90vmin; max-width:90vw; max-height:65vh; justify-content:center; align-content:center; }
+#grid { display:grid; gap:1.5vw; padding:3vw; width:90vmin; height:90vmin; max-width:90vw; max-height:65vh; justify-content:center; align-content:center; }
 
-.cell { background:rgba(255,255,255,0.95); border-radius:12px; font-size:3rem; font-weight:900; display:flex; align-items:center; justify-content:center; aspect-ratio:1/1; user-select:none; box-shadow:0 8px 0 rgba(0,0,0,0.2); transition:all 0.1s; }
-.cell:active { transform:translateY(8px); box-shadow:0 0 0 rgba(0,0,0,0.2); }
+.cell { background:rgba(255,255,255,0.95); border-radius:3vw; font-size:12vw; font-weight:900; display:flex; align-items:center; justify-content:center; aspect-ratio:1/1; user-select:none; box-shadow:0 2vw 0 rgba(0,0,0,0.2); transition:all 0.1s; }
+.cell:active { transform:translateY(2vw); box-shadow:0 0 0 rgba(0,0,0,0.2); }
 
 .wrong-text { 
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  font-size:7rem; color:#ff0044; font-weight:900; text-shadow:0 0 35px black;
-  opacity:0; pointer-events:none; white-space:nowrap; letter-spacing:12px;
+  font-size:18vw; color:#ff0044; font-weight:900; text-shadow:0 0 8vw black;
+  opacity:0; pointer-events:none; white-space:nowrap; letter-spacing:2vw;
 }
 
 .god-pop { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; flex-direction:column; z-index:100; }
-.god-text { font-size:20rem; color:#ffeb3b; text-shadow:0 0 50px #fff, 0 0 100px #ff0; animation:godGlow 1.5s ease-out; }
-.sparkle { position:absolute; font-size:6rem; animation:sparkleAnim 1.5s ease-out forwards; pointer-events:none; }
+.god-text { font-size:50vw; color:#ffeb3b; text-shadow:0 0 15vw #fff, 0 0 30vw #ff0; animation:godGlow 1.5s ease-out; }
+.sparkle { position:absolute; font-size:15vw; animation:sparkleAnim 1.5s ease-out forwards; pointer-events:none; }
 
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト画面抜本見直し：絶対1行・自動サイズ調整・中央揃え完璧 */
+/* リザルト画面：自動調整・1行・中央揃え完璧 */
 .result-box { 
-  text-align:center; color:white; text-shadow:4px 4px 10px black; padding:20px; 
+  text-align:center; color:white; text-shadow:4px 4px 10px black; padding:5vw; 
   width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
 }
 .result-box h1 { 
-  font-size:12vw;            /* 画面幅に応じて自動調整（スマホで小さく、PCで大きく） */
-  margin:20px 0; word-break:keep-all; line-height:1.0; white-space:nowrap;
-  max-font-size:90px;        /* 最大制限 */
-  text-align:center;
+  font-size:15vw; margin:5vw 0; white-space:nowrap; line-height:1.0;
 }
 .result-box h1[data-rank="ワンヘッド"],
 .result-box h1[data-rank="ハーフライフ"] {
-  font-size:9vw !important;  /* 長いランクはさらに小さく自動調整 */
+  font-size:11vw !important;
 }
 .result-time { 
-  font-size:7vw;             /* クリアタイムも自動調整・絶対1行 */
-  margin:30px 0; white-space:nowrap; word-break:keep-all;
-  text-align:center;
+  font-size:8vw; margin:8vw 0; white-space:nowrap;
 }
 @media (min-width:768px) {
-  .result-box h1 { font-size:8vw; }
+  .result-box h1 { font-size:10vw; }
   .result-box h1[data-rank="ワンヘッド"],
-  .result-box h1[data-rank="ハーフライフ"] { font-size:6vw !important; }
-  .result-time { font-size:5vw; }
+  .result-box h1[data-rank="ハーフライフ"] { font-size:8vw !important; }
+  .result-time { font-size:6vw; }
+  .big-btn, .share-btn { font-size:3.5vw; padding:3vw 6vw; }
 }
-.share-btn { 
-  background:#1da1f2; margin-top:30px; box-shadow:0 10px 0 #0d8bd9; 
-  font-size:4.5vw; white-space:nowrap; padding:16px 32px;
-}
-@media (min-width:768px) {
-  .share-btn { font-size:3vw; }
-}
-.share-btn:active { transform:translateY(10px); box-shadow:0 0 0 #0d8bd9; }
