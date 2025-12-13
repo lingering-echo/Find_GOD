@@ -146,11 +146,13 @@ function showResult() {
 
   const rankEl = document.getElementById("rankText");
   rankEl.textContent = rank;
-  rankEl.setAttribute("data-rank", rank);  // ← 長いランクだけ小さくするトリガー！
+  rankEl.setAttribute("data-rank", rank);
   document.getElementById("resultBg").src = "images/" + img;
 
-  const tweetText = `【神を探せ！】で${rank}（${totalTime.toFixed(2)}秒）になりました！あなたはどこまで行ける？`;
-  document.getElementById("shareBtn").onclick = () => {
+  const tweetText = `【非公式】【神を探せ！】で${rank}（${totalTime.toFixed(2)}秒）になりました！あなたは神ランクにたどりつける？`;
+  const shareBtn = document.getElementById("shareBtn");
+  shareBtn.textContent = "Xで神を布教する";
+  shareBtn.onclick = () => {
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(location.href)}`, '_blank');
   };
 }
