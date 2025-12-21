@@ -1,43 +1,24 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin:0; padding:0; box-sizing:border-box; }
 
 html, body {
   height: 100%;
   background: #000;
   font-family: 'Noto Sans JP', sans-serif;
   overflow: hidden;
-}
-
-/* スマホ縦画面（9:16）を中央にレターボックス表示 */
-.game-wrapper {
-  width: 100vw;
-  height: 100vh;
-  max-width: 56.25vh;     /* 16:9の逆 → 縦長を保つ */
-  max-height: 100vh;
-  margin: auto;
-  position: relative;
-  background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.game-wrapper::before {
-  content: '';
-  display: block;
-  padding-top: 177.78%;  /* 9:16 = 177.78%（1920/1080） */
-}
-
-.game-area {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  overflow: hidden;
-}
-
+/* ゲームエリアを1080x1920相当の縦長固定（黒余白でレターボックス） */
 .screen {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
+  width: 1080px;
+  height: 1920px;
+  max-width: 90vw;
+  max-height: 90vh;
+  aspect-ratio: 1080 / 1920;
+  position: relative;
+  background: #000;
   display: none;
   align-items: center;
   justify-content: center;
@@ -55,19 +36,19 @@ html, body {
   z-index: -1;
 }
 
+/* カウントダウン画面は背景なし（元通り） */
 .countdown-screen { background: #000; }
 .countdown-screen .bg { display: none; }
 
-/* ボタン統一・0.8倍サイズ */
+/* ボタン統一・0.8倍縮小（要望通り） */
 .big-btn, .share-btn {
-  padding: 11px 26px;
-  font-size: 1.44rem;
+  padding: 11px 26px;     /* 元の0.8倍 */
+  font-size: 1.44rem;     /* 1.8remの0.8倍 */
   font-weight: 900;
   border: none;
   border-radius: 20px;
-  box-shadow: 0 8px 0 #c8b900;
   cursor: pointer;
-  min-width: 192px;
+  min-width: 192px;       /* 240pxの0.8倍 */
   margin: 12px 0;
   white-space: nowrap;
 }
@@ -75,7 +56,7 @@ html, body {
 .big-btn {
   background: #ffeb3b;
   box-shadow: 0 8px 0 #c8b900;
-  margin-top: 100px;  /* スタートボタン下寄せ */
+  margin-top: 140px;      /* スタートボタン下寄せ */
 }
 
 .big-btn:active {
@@ -86,7 +67,7 @@ html, body {
 .share-btn {
   background: #1da1f2;
   box-shadow: 0 8px 0 #0d8bd9;
-  margin-top: 20px !important;  /* 共有ボタンを少し上に寄せる */
+  margin-top: 40px;       /* 共有ボタン少し下に（もう一度遊ぶの下） */
 }
 
 .share-btn:active {
@@ -94,18 +75,19 @@ html, body {
   box-shadow: none;
 }
 
+/* カウントダウン文字（完全に元に戻した！） */
 .message {
-  font-size: 5vw;
+  font-size: 2.1rem;
   color: white;
   text-shadow: 4px 4px 10px black;
   font-weight: 900;
   text-align: center;
-  margin-bottom: 10vh;
+  margin-bottom: 80px;
   line-height: 1.5;
 }
 
 .countdown {
-  font-size: 25vw;
+  font-size: 12rem;
   color: #ffeb3b;
   font-weight: 900;
   text-shadow: 0 0 30px #ffeb3b;
@@ -117,42 +99,53 @@ html, body {
   50% { transform: scale(1.1); }
 }
 
-#timer, #stage {
+#timer {
   position: absolute;
-  top: 2vh;
-  font-size: 4vw;
+  top: 15px;
+  right: 15px;
+  font-size: 1.8rem;
   color: white;
   background: rgba(0,0,0,0.6);
-  padding: 1.5vh 3vw;
+  padding: 8px 16px;
   border-radius: 12px;
   font-weight: bold;
   z-index: 10;
 }
 
-#timer { right: 2vw; }
-#stage { left: 2vw; }
+#stage {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 1.7rem;
+  color: white;
+  background: rgba(0,0,0,0.6);
+  padding: 8px 16px;
+  border-radius: 12px;
+  z-index: 10;
+}
 
 #grid {
   display: grid;
-  gap: 1vw;
-  width: 90vw;
-  height: 90vw;         /* 正方形を強制維持！ */
-  max-width: 90vh;
-  max-height: 90vh;
-  margin: auto;
+  gap: 5px;
+  padding: 10px;
+  width: 90%;
+  height: 90%;
+  max-width: 972px;   /* 1080の90% */
+  max-height: 1728px; /* 1920の90% */
 }
 
+/* マス目は常に正方形 */
 .cell {
   background: rgba(255,255,255,0.95);
   border-radius: 12px;
-  font-size: 12vw;
+  font-size: 3rem;
   font-weight: 900;
   display: flex;
   align-items: center;
   justify-content: center;
+  aspect-ratio: 1 / 1;
   user-select: none;
   box-shadow: 0 8px 0 rgba(0,0,0,0.2);
-  aspect-ratio: 1 / 1;   /* 必ず正方形！ */
   transition: all 0.1s;
 }
 
@@ -163,16 +156,17 @@ html, body {
 
 .wrong-text {
   position: absolute;
-  top: 50%; left: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 15vw;
+  font-size: 7rem;
   color: #ff0044;
   font-weight: 900;
   text-shadow: 0 0 35px black;
   opacity: 0;
   pointer-events: none;
   white-space: nowrap;
-  letter-spacing: 2vw;
+  letter-spacing: 12px;
 }
 
 .god-pop {
@@ -187,7 +181,7 @@ html, body {
 }
 
 .god-text {
-  font-size: 40vw;
+  font-size: 20rem;
   color: #ffeb3b;
   text-shadow: 0 0 50px #fff, 0 0 100px #ff0;
   animation: godGlow 1.5s ease-out;
@@ -195,7 +189,7 @@ html, body {
 
 .sparkle {
   position: absolute;
-  font-size: 15vw;
+  font-size: 6rem;
   animation: sparkleAnim 1.5s ease-out forwards;
   pointer-events: none;
 }
@@ -215,18 +209,22 @@ html, body {
   text-align: center;
   color: white;
   text-shadow: 4px 4px 10px black;
-  width: 90%;
-  margin-top: -15vh;  /* 文字＋タイムを少し上に */
+  padding: 20px;
+  width: 100%;
+  max-width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .result-box h1 {
-  font-size: 12vw;
-  margin: 2vh 0;
+  font-size: 5.8rem;
+  margin: 10px 0;
   white-space: nowrap;
 }
 
 .result-box p {
-  font-size: 5vw;
-  margin: 2vh 0 8vh 0;
+  font-size: 2.1rem;
+  margin: 10px 0 60px 0;
   white-space: nowrap;
 }
