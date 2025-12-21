@@ -78,29 +78,32 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト画面：テキストをもっと上に！！ */
+/* ★リザルト画面：新しいレイアウト方式（margin-top完全撤廃！）★ */
 .result-box { 
   text-align:center; color:white; text-shadow:4px 4px 10px black; 
-  padding:20px; max-width:95%; width:100%;
-  display:flex; flex-direction:column; align-items:center;
-  justify-content:flex-start;
-  margin-top:60px;
+  padding:20px 20px 40px;          /* 下に余白を多めに（ボタン下部スペース） */
+  width:100%; max-width:95%;
+  height:100%;                     /* 画面いっぱいに広げる */
+  display:flex; 
+  flex-direction:column;
+  justify-content:space-between;   /* ← 上と下に要素を自動で分ける！ */
+  align-items:center;
 }
 
-/* ★ここだけ修正！上側の余白を大幅に減らして超上寄りに！！ ★ */
+/* テキスト部分（上寄せ） */
 .result-box h1 { 
   font-size:4.2rem;
-  margin:5px 0 10px 0;             /* ← 50px → 5px に激減！これで最上部ギリギリに */
+  margin:40px 0 10px 0;            /* 上から少し離して最上部近くに */
   white-space:nowrap;
 }
 
 .result-box p { 
   font-size:2.1rem;
-  margin:0 0 40px 0;
+  margin:0 0 20px 0;
   white-space:nowrap;
 }
 
-/* ボタンは今の完璧な状態のまま */
+/* ボタン部分（下寄せ） */
 .result-box .big-btn,
 .result-box .share-btn {
   margin:12px 0;
