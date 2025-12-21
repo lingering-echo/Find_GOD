@@ -26,7 +26,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   border:none; 
   border-radius:20px; 
   box-shadow:0 8px 0 #c8b900;
-  margin:12px 0;
+  margin:6px 0;                   /* ← ここ変更！12px → 6px（ボタン同士の隙間を狭く） */
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
@@ -78,33 +78,29 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* ★リザルト画面：新しいレイアウト方式（margin-top完全撤廃！）★ */
+/* リザルト画面：位置はそのまま、間隔だけ狭く！！ */
 .result-box { 
   text-align:center; color:white; text-shadow:4px 4px 10px black; 
-  padding:20px 20px 40px;          /* 下に余白を多めに（ボタン下部スペース） */
+  padding:20px 20px 40px;
   width:100%; max-width:95%;
-  height:100%;                     /* 画面いっぱいに広げる */
+  height:100%;
   display:flex; 
   flex-direction:column;
-  justify-content:space-between;   /* ← 上と下に要素を自動で分ける！ */
+  justify-content:space-between;
   align-items:center;
 }
 
-/* テキスト部分（上寄せ） */
+/* テキスト同士の間隔を狭く */
 .result-box h1 { 
   font-size:4.2rem;
-  margin:40px 0 10px 0;            /* 上から少し離して最上部近くに */
+  margin:40px 0 5px 0;             /* ← 下の隙間を10px → 5pxに（クリアタイムに近づく） */
   white-space:nowrap;
 }
 
 .result-box p { 
   font-size:2.1rem;
-  margin:0 0 20px 0;
+  margin:0 0 10px 0;               /* ← 下の隙間も少し減らして全体をコンパクトに */
   white-space:nowrap;
 }
 
-/* ボタン部分（下寄せ） */
-.result-box .big-btn,
-.result-box .share-btn {
-  margin:12px 0;
-}
+/* ボタン同士の隙間は .big-btn, .share-btn の margin で制御（すでに6pxに変更済み） */
