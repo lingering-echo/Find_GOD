@@ -5,7 +5,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 .screen {
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   width:100vw; height:100vh; 
-  max-width:100vmin; max-height:100vmax; /* PCでもスマホサイズ厳守 */
+  max-width:100vmin; max-height:100vmax;
   background:#000; display:none; align-items:center; justify-content:center; flex-direction:column;
 }
 .screen.active { display:flex; }
@@ -78,30 +78,37 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト画面：テキスト部分だけ修正（ボタンはそのまま！） */
+/* リザルト画面：全体の配置（ボタン位置はこれで維持） */
 .result-box { 
   text-align:center; color:white; text-shadow:4px 4px 10px black; 
   padding:20px; max-width:95%; width:100%;
   display:flex; flex-direction:column; align-items:center;
   justify-content:flex-start;
-  margin-top:60px;                /* 全体を下にずらす基点（ボタン位置もこれで決まる） */
+  margin-top:60px;                /* ボタン位置を決める大事な値 → そのままキープ */
 }
 
-/* ★ここだけ修正！リザルトテキスト（ランク）★ */
+/* ★新しく追加：テキストだけを超上に移動！★ */
+.result-texts {
+  width:100%;
+  text-align:center;
+  margin-top:-120px;              /* ← これでテキストだけをめっちゃ上に引き上げる！ */
+}
+
+/* ランクテキスト（サイズは前の修正のまま） */
 .result-box h1 { 
-  font-size:4.2rem;               /* ← PCでもはみ出さない固定サイズに変更（スマホでもちょうどいい大きさ） */
-  margin:20px 0 10px 0;            /* 上に余白を増やして「最上部ギリギリよりやや下」に */
+  font-size:4.2rem;
+  margin:20px 0 10px 0;
   white-space:nowrap;
 }
 
-/* ★ここだけ修正！クリアタイムテキスト★ */
+/* クリアタイムテキスト */
 .result-box p { 
   font-size:2.1rem;
   margin:0 0 40px 0;
   white-space:nowrap;
 }
 
-/* ボタンは前の調整のまま（隙間少なく下寄せ） */
+/* ボタンは今のいい感じを完全維持 */
 .result-box .big-btn,
 .result-box .share-btn {
   margin:12px 0;
