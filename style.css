@@ -15,11 +15,9 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 
 .bg { position:absolute; width:100%; height:100%; object-fit:cover; z-index:-1; }
 
-/* カウントダウン画面だけ背景削除 */
 .countdown-screen { background:#000 !important; }
 .countdown-screen .bg { display:none !important; }
 
-/* 全てのボタンを0.8倍サイズに縮小（スタート・もう一度・共有） */
 .big-btn, .share-btn {
   padding:11px 26px;
   font-size:1.44rem;
@@ -34,7 +32,6 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   min-width:192px;
 }
 
-/* スタート・もう一度遊ぶボタン（黄色） */
 .big-btn {
   background:#ffeb3b; 
   box-shadow:0 8px 0 #c8b900; 
@@ -42,7 +39,6 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 }
 .big-btn:active { transform:translateY(8px); box-shadow:0 0 0 #c8b900; }
 
-/* 共有ボタン（青） */
 .share-btn {
   background:#1da1f2 !important; 
   box-shadow:0 8px 0 #0d8bd9 !important; 
@@ -78,37 +74,37 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト画面：全体の配置（ボタン位置はこれで維持） */
+/* ★リザルト画面：中央寄せ復活＆テキストだけ超上に移動★ */
 .result-box { 
   text-align:center; color:white; text-shadow:4px 4px 10px black; 
   padding:20px; max-width:95%; width:100%;
   display:flex; flex-direction:column; align-items:center;
-  justify-content:flex-start;
-  margin-top:60px;                /* ボタン位置を決める大事な値 → そのままキープ */
+  justify-content:center;         /* ← 全体を縦中央に（ボタン位置の基準） */
+  position:relative;              /* ← 子要素を絶対配置で上に動かすための準備 */
 }
 
-/* ★新しく追加：テキストだけを超上に移動！★ */
-.result-texts {
-  width:100%;
-  text-align:center;
-  margin-top:-120px;              /* ← これでテキストだけをめっちゃ上に引き上げる！ */
-}
-
-/* ランクテキスト（サイズは前の修正のまま） */
+/* ★テキストだけを画面上方にがっつり移動（中央寄せはそのまま！）★ */
 .result-box h1 { 
   font-size:4.2rem;
-  margin:20px 0 10px 0;
+  margin:0 0 10px 0;
+  position:absolute;
+  top:40px;                       /* ← 最上部ギリギリより少し下（ここを調整してね！） */
+  left:50%;
+  transform:translateX(-50%);     /* ← 完璧な中央寄せ復活！ */
   white-space:nowrap;
 }
 
-/* クリアタイムテキスト */
 .result-box p { 
   font-size:2.1rem;
   margin:0 0 40px 0;
+  position:absolute;
+  top:130px;                      /* ← h1の下にぴったり配置（h1のサイズに合わせて調整） */
+  left:50%;
+  transform:translateX(-50%);
   white-space:nowrap;
 }
 
-/* ボタンは今のいい感じを完全維持 */
+/* ボタンは今の完璧な位置を維持 */
 .result-box .big-btn,
 .result-box .share-btn {
   margin:12px 0;
