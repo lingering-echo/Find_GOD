@@ -5,7 +5,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 .screen {
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   width:100vw; height:100vh; 
-  max-width:100vmin; max-height:100vmax; /* PCでもスマホサイズに固定 */
+  max-width:100vmin; max-height:100vmax; /* PCでもスマホサイズ厳守 */
   background:#000; display:none; align-items:center; justify-content:center; flex-direction:column;
 }
 .screen.active { display:flex; }
@@ -21,17 +21,17 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 
 /* 全てのボタンを0.8倍サイズに縮小（スタート・もう一度・共有） */
 .big-btn, .share-btn {
-  padding:11px 26px;              /* 元の14px32px → 約0.8倍 */
-  font-size:1.44rem;              /* 元の1.8rem → 0.8倍 */
+  padding:11px 26px;
+  font-size:1.44rem;
   border:none; 
   border-radius:20px; 
-  box-shadow:0 8px 0 #c8b900;     /* 影も少し小さく */
-  margin:20px 0;                  /* 上下間隔を少し広げてボタンを下にずらす */
+  box-shadow:0 8px 0 #c8b900;
+  margin:12px 0;                  /* ← 隙間を減らした（20px → 12px） */
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
   text-align:center;
-  min-width:192px;                /* 幅も0.8倍（240px → 192px） */
+  min-width:192px;
 }
 
 /* スタート・もう一度遊ぶボタン（黄色） */
@@ -40,7 +40,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   box-shadow:0 8px 0 #c8b900; 
   margin-top:180px;
 }
-.big-btn:active { transform:translateY(8px); box-shadow:0 0 0 #c8b900; } /* 押したときの移動も調整 */
+.big-btn:active { transform:translateY(8px); box-shadow:0 0 0 #c8b900; }
 
 /* 共有ボタン（青） */
 .share-btn {
@@ -78,25 +78,27 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト：テキストを少し上に、ボタンを少し下に、PCでもスマホサイズ厳守 */
+/* リザルト画面：カウントダウン画面と同じ安定した配置方式に変更（スマホ・PC完全同一） */
 .result-box { 
-  text-align:center; color:white; text-shadow:4px 4px 10px black; padding:20px; max-width:95%; 
-  width:100%; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
-  margin-top:-180px;   /* ← さらに上に上げて、ランクとタイムを上寄りに！！ */
+  text-align:center; color:white; text-shadow:4px 4px 10px black; 
+  padding:20px; max-width:95%; width:100%;
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:flex-start;     /* 上寄せ */
+  margin-top:60px;                /* ← テキスト全体をがっつり下にずらす（ボタンも一緒に下へ） */
 }
 .result-box h1 { 
   font-size:clamp(3.5rem, 8vw, 5.8rem);
-  margin:10px 0 10px 0;
+  margin:10px 0 20px 0;           /* ランクの下に少しスペース */
   white-space:nowrap;
 }
 .result-box p { 
   font-size:2.1rem;
-  margin:10px 0 80px 0;
+  margin:0 0 40px 0;              /* タイムの下にボタンまでのスペース */
   white-space:nowrap;
 }
 
-/* スマホ専用：さらに上に寄せる＆ボタン間隔調整 */
-@media (max-width:767px) {
-  .result-box { margin-top:-200px; }  /* スマホでさらに上に */
-  .result-box .big-btn { margin-top:30px; }  /* ボタンを少し下に離す */
+/* スマホ・PC共通でボタン隙間を少なく＆さらに下に */
+.result-box .big-btn,
+.result-box .share-btn {
+  margin:12px 0;                  /* ボタン同士の隙間を少なく */
 }
