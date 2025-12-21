@@ -26,7 +26,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   border:none; 
   border-radius:20px; 
   box-shadow:0 8px 0 #c8b900;
-  margin:12px 0;                  /* ← 隙間を減らした（20px → 12px） */
+  margin:12px 0;
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
@@ -78,27 +78,31 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト画面：カウントダウン画面と同じ安定した配置方式に変更（スマホ・PC完全同一） */
+/* リザルト画面：テキスト部分だけ修正（ボタンはそのまま！） */
 .result-box { 
   text-align:center; color:white; text-shadow:4px 4px 10px black; 
   padding:20px; max-width:95%; width:100%;
   display:flex; flex-direction:column; align-items:center;
-  justify-content:flex-start;     /* 上寄せ */
-  margin-top:60px;                /* ← テキスト全体をがっつり下にずらす（ボタンも一緒に下へ） */
+  justify-content:flex-start;
+  margin-top:60px;                /* 全体を下にずらす基点（ボタン位置もこれで決まる） */
 }
+
+/* ★ここだけ修正！リザルトテキスト（ランク）★ */
 .result-box h1 { 
-  font-size:clamp(3.5rem, 8vw, 5.8rem);
-  margin:10px 0 20px 0;           /* ランクの下に少しスペース */
-  white-space:nowrap;
-}
-.result-box p { 
-  font-size:2.1rem;
-  margin:0 0 40px 0;              /* タイムの下にボタンまでのスペース */
+  font-size:4.2rem;               /* ← PCでもはみ出さない固定サイズに変更（スマホでもちょうどいい大きさ） */
+  margin:20px 0 10px 0;            /* 上に余白を増やして「最上部ギリギリよりやや下」に */
   white-space:nowrap;
 }
 
-/* スマホ・PC共通でボタン隙間を少なく＆さらに下に */
+/* ★ここだけ修正！クリアタイムテキスト★ */
+.result-box p { 
+  font-size:2.1rem;
+  margin:0 0 40px 0;
+  white-space:nowrap;
+}
+
+/* ボタンは前の調整のまま（隙間少なく下寄せ） */
 .result-box .big-btn,
 .result-box .share-btn {
-  margin:12px 0;                  /* ボタン同士の隙間を少なく */
+  margin:12px 0;
 }
