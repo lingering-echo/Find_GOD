@@ -18,23 +18,20 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 .countdown-screen { background:#000 !important; }
 .countdown-screen .bg { display:none !important; }
 
-/* 全てのボタン */
 .big-btn, .share-btn {
   padding:11px 26px;
   font-size:1.44rem;
   border:none; 
   border-radius:20px; 
   box-shadow:0 8px 0 #c8b900;
-  margin:20px 0;                   /* ボタン同士の隙間確保！！ */
+  margin:8px 0;                    /* ← ボタン同士の小さなマージン（ちょうどいい隙間） */
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
   text-align:center;
   min-width:192px;
-  max-width:80%;
 }
 
-/* スタート・もう一度遊ぶボタン（黄色） */
 .big-btn {
   background:#ffeb3b; 
   box-shadow:0 8px 0 #c8b900; 
@@ -42,7 +39,6 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 }
 .big-btn:active { transform:translateY(8px); box-shadow:0 0 0 #c8b900; }
 
-/* 共有ボタン（青） */
 .share-btn {
   background:#1da1f2 !important; 
   box-shadow:0 8px 0 #0d8bd9 !important; 
@@ -54,18 +50,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   text-align:center; margin-bottom:80px; line-height:1.5; 
 }
 
-/* カウントダウン数字元通り！！ */
-.countdown { 
-  font-size:12rem; 
-  color:#ffeb3b; 
-  font-weight:900; 
-  text-shadow:0 0 30px #ffeb3b; 
-  animation:pulse 1.2s infinite; 
-  line-height:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
+.countdown { font-size:12rem; color:#ffeb3b; font-weight:900; text-shadow:0 0 30px #ffeb3b; animation:pulse 1.2s infinite; }
 @keyframes pulse { 0%,100% {transform:scale(1)} 50% {transform:scale(1.1)} }
 
 #timer { position:absolute; top:15px; right:15px; font-size:1.8rem; color:white; background:rgba(0,0,0,0.6); padding:8px 16px; border-radius:12px; font-weight:bold; z-index:10; }
@@ -89,10 +74,10 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト：テキスト位置完璧維持 + 下部50%ボックスで縦横センター！！ */
+/* リザルト画面：テキストは上寄り、ボタンは下半分専用エリアに！！ */
 .result-box { 
   text-align:center; color:white; text-shadow:4px 4px 10px black; 
-  padding:40px 20px 0 20px;
+  padding:20px;
   width:100%; max-width:95%;
   height:100%;
   display:flex; 
@@ -100,24 +85,25 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   align-items:center;
 }
 
-.result-text h1 { 
+/* テキスト部分（前の完璧な状態を維持） */
+.result-box h1 { 
   font-size:4.2rem;
-  margin:0 0 5px 0;
+  margin:40px 0 5px 0;
   white-space:nowrap;
 }
 
-.result-text p { 
+.result-box p { 
   font-size:2.1rem;
-  margin:0;
+  margin:0 0 10px 0;
   white-space:nowrap;
 }
 
-/* 下部50%ボックス + 縦もセンター！！ */
-.result-buttons {
-  height:50vh;
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;          /* ← 縦センター！！ */
-  align-items:center;              /* 横センター！！ */
+/* ★新しく追加！ボタングループ（画面下部50%相当の中央寄せ）★ */
+.button-group {
+  flex: 1;                                      /* ← 下半分のスペースを全部使う */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;                      /* ← 縦中央寄せ */
+  align-items: center;                          /* ← 横中央寄せ */
+  width: 100%;
 }
