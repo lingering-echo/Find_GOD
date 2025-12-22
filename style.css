@@ -74,15 +74,16 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* ★最終修正！！下paddingを増やしてボタンを上へ！！★ */
+/* ★単純で完璧な配置！！★ */
 .result-box { 
+  position:relative;               /* ← absolute配置の基準に！！ */
   text-align:center; color:white; text-shadow:4px 4px 10px black; 
-  padding:40px 20px 200px 20px;    /* ← 下だけ200pxに増やして共有ボタンをぐっと上へ押し上げる！！ */
+  padding:40px 20px 40px 20px;     /* 上だけ少し浮かせてテキスト位置完璧維持 */
   width:100%; max-width:95%;
   height:100%;
   display:flex; 
   flex-direction:column;
-  justify-content:space-between;
+  justify-content:flex-start;      /* 上寄せでテキスト位置変わらず */
   align-items:center;
 }
 
@@ -98,7 +99,12 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   white-space:nowrap;
 }
 
+/* ★ボタン2つを画面中央より下に固定配置！！★ */
 .result-buttons {
+  position:absolute;
+  bottom:20vh;                     /* ← 下から20vhの位置（中央より下、下スレスレじゃない！！調整自由） */
+  left:50%;
+  transform:translateX(-50%);
   display:flex;
   flex-direction:column;
   align-items:center;
