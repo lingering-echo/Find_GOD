@@ -5,7 +5,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 .screen {
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   width:100vw; height:100vh; 
-  max-width:100vmin; max-height:100vmax; /* PCでもスマホサイズ厳守 */
+  max-width:100vmin; max-height:100vmax;
   background:#000; display:none; align-items:center; justify-content:center; flex-direction:column;
 }
 .screen.active { display:flex; }
@@ -15,18 +15,16 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 
 .bg { position:absolute; width:100%; height:100%; object-fit:cover; z-index:-1; }
 
-/* カウントダウン画面だけ背景削除 */
 .countdown-screen { background:#000 !important; }
 .countdown-screen .bg { display:none !important; }
 
-/* 全てのボタンを0.8倍サイズに縮小（スタート・もう一度・共有） */
 .big-btn, .share-btn {
   padding:11px 26px;
   font-size:1.44rem;
   border:none; 
   border-radius:20px; 
   box-shadow:0 8px 0 #c8b900;
-  margin:3px 0;                   /* ← ここだけ変更！6px → 3px（ボタン同士を超近づけ！） */
+  margin:8px 0;                   /* ボタン同士の隙間：少しだけ開ける */
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
@@ -34,7 +32,6 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   min-width:192px;
 }
 
-/* スタート・もう一度遊ぶボタン（黄色） */
 .big-btn {
   background:#ffeb3b; 
   box-shadow:0 8px 0 #c8b900; 
@@ -42,7 +39,6 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 }
 .big-btn:active { transform:translateY(8px); box-shadow:0 0 0 #c8b900; }
 
-/* 共有ボタン（青） */
 .share-btn {
   background:#1da1f2 !important; 
   box-shadow:0 8px 0 #0d8bd9 !important; 
@@ -78,27 +74,40 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト画面：位置はそのまま、ボタン間隔だけさらに狭く！！ */
+/* ★新レイアウト：テキスト位置完璧維持＋ボタンを下から1/3に！★ */
 .result-box { 
   text-align:center; color:white; text-shadow:4px 4px 10px black; 
-  padding:20px 20px 40px;
+  padding:20px;
   width:100%; max-width:95%;
   height:100%;
   display:flex; 
   flex-direction:column;
-  justify-content:space-between;
+  justify-content:flex-start;     /* 上寄せに戻してテキスト位置を完璧維持 */
   align-items:center;
 }
 
-/* テキスト同士の間隔（前の調整のまま） */
-.result-box h1 { 
+/* テキスト部分（位置が変わらない！） */
+.result-text {
+  width:100%;
+}
+
+.result-text h1 { 
   font-size:4.2rem;
   margin:40px 0 5px 0;
   white-space:nowrap;
 }
 
-.result-box p { 
+.result-text p { 
   font-size:2.1rem;
   margin:0 0 10px 0;
   white-space:nowrap;
+}
+
+/* ★ボタングループ：画面下から約1/3の位置に配置★ */
+.result-buttons {
+  margin-top:auto;                 /* 上のテキストを押し上げて自分を下に寄せる */
+  margin-bottom:33vh;              /* 下から約1/3（画面高さの33%）の位置に調整 */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
