@@ -17,7 +17,7 @@
 
   <!-- 説明＆カウントダウン画面（背景削除） -->
   <div id="intro" class="screen countdown-screen">
-    <div class="message">神を見つけて<br>タップしよう！</div>
+    <div class="message">神を見つけだせ</div>
     <div id="countdown" class="countdown">3</div>
   </div>
 
@@ -40,7 +40,7 @@
 
   <!-- 次ステージへカウントダウン（背景削除） -->
   <div id="nextStage" class="screen countdown-screen">
-    <div class="message">正解！<br>次のステージが<br>はじまるよ！</div>
+    <div class="message">正解だ<br>次のステージに<br>そなえるといい</div>
     <div class="countdown" id="nextCount">3</div>
   </div>
 
@@ -48,16 +48,13 @@
   <div id="result" class="screen">
     <img id="resultBg" class="bg">
     <div class="result-box">
-      <!-- テキスト部分 -->
+      <!-- テキストグループ（上部に浮いて張り付かない） -->
       <div class="result-text">
         <h1 id="rankText">神</h1>
         <p>クリアタイム <span id="finalTime">0.00</span>秒</p>
       </div>
 
-      <!-- 中間の空スペース（これでボタンを下寄りに） -->
-      <div class="spacer"></div>
-
-      <!-- ボタングループ（まとまって下寄り、少し隙間で縦並び） -->
+      <!-- ボタングループ（下部に浮いて張り付かない！！） -->
       <div class="result-buttons">
         <button class="big-btn" onclick="location.reload()">もう一度遊ぶ</button>
         <button class="big-btn share-btn" id="shareBtn">Xで神を布教する</button>

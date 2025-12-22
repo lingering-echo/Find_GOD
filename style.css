@@ -24,7 +24,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   border:none; 
   border-radius:20px; 
   box-shadow:0 8px 0 #c8b900;
-  margin:8px 0;
+  margin:10px 0;                   /* ボタン同士の隙間少し（調整自由） */
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
@@ -74,30 +74,28 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
+/* ★完璧対称レイアウト！！テキストと同じようにボタンも浮く★ */
 .result-box { 
   text-align:center; color:white; text-shadow:4px 4px 10px black; 
-  padding:20px;
+  padding:40px 20px;               /* 上にもpadding追加でテキストをさらに浮かせる */
   width:100%; max-width:95%;
   height:100%;
   display:flex; 
   flex-direction:column;
+  justify-content:space-between;   /* ← これで上と下に対称的に浮く！！ */
   align-items:center;
 }
 
 .result-text h1 { 
   font-size:4.2rem;
-  margin:15px 0 5px 0;
+  margin:0 0 5px 0;
   white-space:nowrap;
 }
 
 .result-text p { 
   font-size:2.1rem;
-  margin:0 0 10px 0;
+  margin:0;
   white-space:nowrap;
-}
-
-.spacer {
-  flex: 1;
 }
 
 .result-buttons {
