@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>神を探せ！</title>
   <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family:Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -40,7 +40,7 @@
 
   <!-- 次ステージへカウントダウン（背景削除） -->
   <div id="nextStage" class="screen countdown-screen">
-    <div class="message">正解だ<br>次のステージに<br>そなえるといい</div>
+    <div class="message">正解だ<br>次のステージに<br>そなえるがいい</div>
     <div class="countdown" id="nextCount">3</div>
   </div>
 
@@ -48,13 +48,12 @@
   <div id="result" class="screen">
     <img id="resultBg" class="bg">
     <div class="result-box">
-      <!-- テキストグループ（上部に浮いて張り付かない） -->
       <div class="result-text">
         <h1 id="rankText">神</h1>
         <p>クリアタイム <span id="finalTime">0.00</span>秒</p>
       </div>
 
-      <!-- ボタングループ（下部に浮いて張り付かない！！） -->
+      <!-- ボタンボックス（画面下部50%で定義、中央寄せ！！） -->
       <div class="result-buttons">
         <button class="big-btn" onclick="location.reload()">もう一度遊ぶ</button>
         <button class="big-btn share-btn" id="shareBtn">Xで神を布教する</button>
