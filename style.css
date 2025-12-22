@@ -5,7 +5,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 .screen {
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   width:100vw; height:100vh; 
-  max-width:100vmin; max-height:100vmax;
+  max-width:100vmin; max-height:100vmax; /* PCでもスマホサイズ厳守！！ */
   background:#000; display:none; align-items:center; justify-content:center; flex-direction:column;
 }
 .screen.active { display:flex; }
@@ -18,13 +18,14 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 .countdown-screen { background:#000 !important; }
 .countdown-screen .bg { display:none !important; }
 
+/* ボタンサイズ（0.8倍のまま） */
 .big-btn, .share-btn {
   padding:11px 26px;
   font-size:1.44rem;
   border:none; 
   border-radius:20px; 
   box-shadow:0 8px 0 #c8b900;
-  margin:8px 0;                    /* ← ボタン同士の小さなマージン（ちょうどいい隙間） */
+  margin:10px 0;                   /* ボタン同士の自然な隙間 */
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
@@ -74,36 +75,51 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト画面：テキストは上寄り、ボタンは下半分専用エリアに！！ */
-.result-box { 
-  text-align:center; color:white; text-shadow:4px 4px 10px black; 
-  padding:20px;
-  width:100%; max-width:95%;
-  height:100%;
-  display:flex; 
-  flex-direction:column;
-  align-items:center;
-}
-
-/* テキスト部分（前の完璧な状態を維持） */
-.result-box h1 { 
-  font-size:4.2rem;
-  margin:40px 0 5px 0;
-  white-space:nowrap;
-}
-
-.result-box p { 
-  font-size:2.1rem;
-  margin:0 0 10px 0;
-  white-space:nowrap;
-}
-
-/* ★新しく追加！ボタングループ（画面下部50%相当の中央寄せ）★ */
-.button-group {
-  flex: 1;                                      /* ← 下半分のスペースを全部使う */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;                      /* ← 縦中央寄せ */
-  align-items: center;                          /* ← 横中央寄せ */
+/* ★リザルト画面：超シンプル＆常識的な配置に戻した！！★ */
+#result {
+  position: relative;              /* positionの基準にする */
   width: 100%;
+  height: 100%;
+}
+
+/* リザルトテキスト：さらに上に！！（独立配置） */
+#rankText {
+  position: absolute;
+  top: 15%;                        /* ← 画面上から15%位置（さらに上に調整） */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 4.2rem;
+  color: white;
+  text-shadow: 4px 4px 10px black;
+  white-space: nowrap;
+}
+
+#finalTime {
+  position: absolute;
+  top: 28%;                        /* ← ランクの下に自然に配置 */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.1rem;
+  color: white;
+  text-shadow: 4px 4px 10px black;
+  white-space: nowrap;
+}
+
+/* 前回のpタグのスタイル削除（今は使わない） */
+.result-box p { display: none; }
+
+/* ボタン：下寄りの常識的な位置（独立配置） */
+#result .big-btn,
+#result .share-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#result .big-btn {                 /* もう一度遊ぶ */
+  bottom: 18%;                     /* 下から18%（自然な下寄り） */
+}
+
+#result .share-btn {               /* 共有ボタン */
+  bottom: 8%;                      /* もう一度遊ぶの下に自然な隙間 */
 }
