@@ -48,13 +48,16 @@
   <div id="result" class="screen">
     <img id="resultBg" class="bg">
     <div class="result-box">
-      <!-- テキスト部分（位置完璧！） -->
+      <!-- テキスト部分 -->
       <div class="result-text">
         <h1 id="rankText">神</h1>
         <p>クリアタイム <span id="finalTime">0.00</span>秒</p>
       </div>
 
-      <!-- ボタングループ（下から約1/3の位置に少し隙間で縦並び） -->
+      <!-- 中間の空スペース（これでボタンを下寄りに） -->
+      <div class="spacer"></div>
+
+      <!-- ボタングループ（まとまって下寄り、少し隙間で縦並び） -->
       <div class="result-buttons">
         <button class="big-btn" onclick="location.reload()">もう一度遊ぶ</button>
         <button class="big-btn share-btn" id="shareBtn">Xで神を布教する</button>

@@ -24,7 +24,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   border:none; 
   border-radius:20px; 
   box-shadow:0 8px 0 #c8b900;
-  margin:8px 0;                   /* ボタン同士の隙間：少しだけ開ける */
+  margin:8px 0;
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
@@ -74,7 +74,6 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* ★新レイアウト：テキスト位置完璧維持＋ボタンを下から1/3に！★ */
 .result-box { 
   text-align:center; color:white; text-shadow:4px 4px 10px black; 
   padding:20px;
@@ -82,18 +81,12 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   height:100%;
   display:flex; 
   flex-direction:column;
-  justify-content:flex-start;     /* 上寄せに戻してテキスト位置を完璧維持 */
   align-items:center;
-}
-
-/* テキスト部分（位置が変わらない！） */
-.result-text {
-  width:100%;
 }
 
 .result-text h1 { 
   font-size:4.2rem;
-  margin:40px 0 5px 0;
+  margin:15px 0 5px 0;
   white-space:nowrap;
 }
 
@@ -103,10 +96,11 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   white-space:nowrap;
 }
 
-/* ★ボタングループ：画面下から約1/3の位置に配置★ */
+.spacer {
+  flex: 1;
+}
+
 .result-buttons {
-  margin-top:auto;                 /* 上のテキストを押し上げて自分を下に寄せる */
-  margin-bottom:33vh;              /* 下から約1/3（画面高さの33%）の位置に調整 */
   display:flex;
   flex-direction:column;
   align-items:center;
