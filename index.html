@@ -40,7 +40,7 @@
 
   <!-- 次ステージへカウントダウン（背景削除） -->
   <div id="nextStage" class="screen countdown-screen">
-    <div class="message">正解！<br>次のステージが<br>はじまるよ！</div>
+    <div class="message">正解だ<br>次のステージに<br>そなえるといい</div>
     <div class="countdown" id="nextCount">3</div>
   </div>
 
@@ -50,12 +50,12 @@
     <div class="result-box">
       <h1 id="rankText">神</h1>
       <p>クリアタイム <span id="finalTime">0.00</span>秒</p>
-      
-      <!-- ★新しく追加したボタングループ★ -->
-      <div class="button-group">
-        <button class="big-btn" onclick="location.reload()">もう一度遊ぶ</button>
-        <button class="big-btn share-btn" id="shareBtn">Xで神を布教する</button>
-      </div>
+
+      <!-- ★追加：もう一度遊ぶボタン（リプレイ）★ -->
+      <button class="replay-btn">もう一度遊ぶ</button>
+
+      <!-- ★追加：X共有ボタン★ -->
+      <button class="share-btn" id="shareBtn">Xで神を布教する</button>
     </div>
   </div>
 

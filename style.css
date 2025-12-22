@@ -5,7 +5,7 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 .screen {
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   width:100vw; height:100vh; 
-  max-width:100vmin; max-height:100vmax; /* PCでもスマホサイズ厳守 */
+  max-width:100vmin; max-height:100vmax;
   background:#000; display:none; align-items:center; justify-content:center; flex-direction:column;
 }
 .screen.active { display:flex; }
@@ -15,39 +15,25 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 
 .bg { position:absolute; width:100%; height:100%; object-fit:cover; z-index:-1; }
 
-/* カウントダウン画面だけ背景削除 */
 .countdown-screen { background:#000 !important; }
 .countdown-screen .bg { display:none !important; }
 
-/* 全てのボタンを0.8倍サイズに縮小（スタート・もう一度・共有） */
-.big-btn, .share-btn {
+/* スタートボタン */
+.big-btn {
   padding:11px 26px;
   font-size:1.44rem;
   border:none; 
   border-radius:20px; 
   box-shadow:0 8px 0 #c8b900;
-  margin:3px 0;                   /* ボタン同士の隙間（超狭く） */
   cursor:pointer; 
   font-weight:900; 
   white-space:nowrap;
   text-align:center;
   min-width:192px;
-}
-
-/* スタート・もう一度遊ぶボタン（黄色） */
-.big-btn {
   background:#ffeb3b; 
-  box-shadow:0 8px 0 #c8b900; 
   margin-top:180px;
 }
 .big-btn:active { transform:translateY(8px); box-shadow:0 0 0 #c8b900; }
-
-/* 共有ボタン（青） */
-.share-btn {
-  background:#1da1f2 !important; 
-  box-shadow:0 8px 0 #0d8bd9 !important; 
-}
-.share-btn:active { transform:translateY(8px); box-shadow:0 0 0 #0d8bd9 !important; }
 
 .message { 
   font-size:2.1rem; color:white; text-shadow:4px 4px 10px black; font-weight:900; 
@@ -78,38 +64,69 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
-/* リザルト画面：シンプルで調整しやすい新レイアウト */
+/* リザルト画面：テキスト上寄り */
 .result-box { 
+  position:relative;               /* ← ボタンの絶対配置の基準にする */
   text-align:center; color:white; text-shadow:4px 4px 10px black; 
-  padding:20px 20px 40px;
+  padding:20px;
   width:100%; max-width:95%;
-  height:100%;
   display:flex; 
   flex-direction:column;
   align-items:center;
+  justify-content:flex-start;
 }
 
-/* テキストをもう少し上に */
 .result-box h1 { 
   font-size:4.2rem;
-  margin:30px 0 5px 0;             /* ← 40px → 30pxでもう少し上に！！ */
+  margin:80px 0 10px 0;
   white-space:nowrap;
 }
 
 .result-box p { 
   font-size:2.1rem;
-  margin:0 0 10px 0;
+  margin:0 0 20px 0;
   white-space:nowrap;
 }
 
-/* ★新しくシンプルに追加：ボタングループ★ */
-/* あとから高さを調整したいときは --button-top-offset の数値を変えるだけ！ */
-.button-group {
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  margin-top: auto;                /* 下寄せの基本 */
-  margin-bottom: 40px;             /* 下端からの余白 */
-  padding-top: var(--button-top-offset, 0px);  /* ← ここで数値調整可能！（例: 20px にすれば少し上に） */
+/* ★超シンプル！ボタン位置を数字で調整可能★ */
+/* 数字を変えるだけで位置が変わります！（単位：px） */
+
+.replay-btn {
+  position:absolute;
+  bottom:120px;                    /* ← 下から120pxの位置（数字を変えて上下調整） */
+  left:50%;                        /* 横中央 */
+  transform:translateX(-50%);      /* 完全に中央に */
+  padding:12px 32px;
+  font-size:1.5rem;
+  font-weight:900;
+  background:#ffeb3b;
+  color:black;
+  border:none;
+  border-radius:20px;
+  box-shadow:0 8px 0 #c8b900;
+  cursor:pointer;
+}
+.replay-btn:active {
+  transform:translateX(-50%) translateY(8px);
+  box-shadow:0 0 0 #c8b900;
+}
+
+.share-btn {
+  position:absolute;
+  bottom:50px;                     /* ← 下から50pxの位置（replayより上） */
+  left:50%;
+  transform:translateX(-50%);
+  padding:12px 32px;
+  font-size:1.5rem;
+  font-weight:900;
+  background:#1da1f2;
+  color:white;
+  border:none;
+  border-radius:20px;
+  box-shadow:0 8px 0 #0d8bd9;
+  cursor:pointer;
+}
+.share-btn:active {
+  transform:translateX(-50%) translateY(8px);
+  box-shadow:0 0 0 #0d8bd9;
 }
