@@ -74,9 +74,10 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
 @keyframes godGlow { 0% {transform:scale(0); opacity:0} 70% {transform:scale(1.2)} 100% {transform:scale(1); opacity:1} }
 @keyframes sparkleAnim { 0% {opacity:1; transform:translate(0,0) rotate(0)} 100% {opacity:0; transform:translate(var(--x),var(--y)) rotate(360deg)} }
 
+/* ★最終修正！！下paddingを増やしてボタンを上へ！！★ */
 .result-box { 
   text-align:center; color:white; text-shadow:4px 4px 10px black; 
-  padding:40px 20px;
+  padding:40px 20px 200px 20px;    /* ← 下だけ200pxに増やして共有ボタンをぐっと上へ押し上げる！！ */
   width:100%; max-width:95%;
   height:100%;
   display:flex; 
@@ -101,5 +102,4 @@ body { display:flex; align-items:center; justify-content:center; font-family:'No
   display:flex;
   flex-direction:column;
   align-items:center;
-  margin-bottom:250px;             /* ← ここ追加！！共有ボタンを下から250px押し上げる！！ */
 }
