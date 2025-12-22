@@ -17,7 +17,7 @@
 
   <!-- 説明＆カウントダウン画面（背景削除） -->
   <div id="intro" class="screen countdown-screen">
-    <div class="message">神を見つけて<br>タップしよう！</div>
+    <div class="message">神を見つけだせ</div>
     <div id="countdown" class="countdown">3</div>
   </div>
 
@@ -44,21 +44,19 @@
     <div class="countdown" id="nextCount">3</div>
   </div>
 
-  <!-- リザルト画面（シンプルにリセット！！） -->
+  <!-- リザルト画面 -->
   <div id="result" class="screen">
     <img id="resultBg" class="bg">
-    
-    <!-- リザルトテキスト（独立して上に配置） -->
-    <h1 id="rankText">神</h1>
-    
-    <!-- クリアタイムテキスト（独立してランクの下に） -->
-    <div id="timeText">
-      クリアタイム <span id="finalTime">0.00</span>秒
+    <div class="result-box">
+      <h1 id="rankText">神</h1>
+      <p>クリアタイム <span id="finalTime">0.00</span>秒</p>
+      
+      <!-- ★新しく追加したボタングループ★ -->
+      <div class="button-group">
+        <button class="big-btn" onclick="location.reload()">もう一度遊ぶ</button>
+        <button class="big-btn share-btn" id="shareBtn">Xで神を布教する</button>
+      </div>
     </div>
-    
-    <!-- ボタン（独立して下に配置） -->
-    <button class="big-btn replay-btn" onclick="location.reload()">もう一度遊ぶ</button>
-    <button class="big-btn share-btn" id="shareBtn">Xで神を布教する</button>
   </div>
 
   <script src="script.js"></script>
