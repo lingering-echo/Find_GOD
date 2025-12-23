@@ -149,7 +149,7 @@ function showResult() {
   rankEl.setAttribute("data-rank", rank);
   document.getElementById("resultBg").src = "images/" + img;
 
-  const tweetText = `【神を探せ！】で${rank}（${totalTime.toFixed(2)}秒）になりました！あなたはどこまで行ける？`;
+  const tweetText = `【非公式】【神を探せ！】で${rank}（${totalTime.toFixed(2)}秒）になりました！あなたは神にたどりつける？`;
   const shareBtn = document.getElementById("shareBtn");
   shareBtn.textContent = "Xで神を布教する";
   shareBtn.onclick = () => {
